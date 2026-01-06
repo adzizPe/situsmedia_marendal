@@ -170,7 +170,7 @@ function checkTodayQuiz() {
 }
 
 function showAlreadyPlayed(result) {
-    const emoji = result.score >= 80 ? '🏆' : result.score >= 60 ? '👍' : '💪';
+    const emoji = result.score >= 80 ? '🏆' : result.score >= 60 ? '👍' : ;
     document.getElementById('quizContainer').innerHTML = `
         <div class="quiz-done">
             <div class="quiz-done-icon">${emoji}</div>
@@ -179,7 +179,7 @@ function showAlreadyPlayed(result) {
             <div class="quiz-done-score">${result.score}</div>
             <p>Benar: ${result.correct} dari ${result.total} soal</p>
             <div class="quiz-done-info">
-                Kembali besok untuk quiz baru ya! 🎯<br>
+                Kembali besok untuk quiz baru ya! <br>
                 <a href="./leaderboard/" style="color:var(--primary);margin-top:15px;display:inline-block;">Lihat Papan Peringkat →</a>
             </div>
         </div>
