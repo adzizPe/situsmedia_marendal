@@ -175,6 +175,7 @@ img {
   border-radius: 20px;
   padding: 6px 12px;
   gap: 8px;
+  cursor: text;
 }
 
 .search-box button {
@@ -195,6 +196,7 @@ img {
   width: 180px;
   -webkit-appearance: none;
   appearance: none;
+  flex: 1;
 }
 
 .date-time {

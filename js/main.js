@@ -178,6 +178,13 @@ function initSearch() {
 
         if (!input) return;
 
+        // Make entire search box clickable to focus input
+        searchBox.addEventListener('click', (e) => {
+            if (e.target !== button && !button.contains(e.target)) {
+                input.focus();
+            }
+        });
+
         // Create dropdown for results
         let dropdown = searchBox.querySelector('.search-dropdown');
         if (!dropdown) {

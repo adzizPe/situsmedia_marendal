@@ -49,9 +49,13 @@ const defaultQuestions = [
 ];
 
 function initFirebase() {
-    try { quizApp = firebase.app('quizApp'); }
-    catch (e) { quizApp = firebase.initializeApp(firebaseConfig, 'quizApp'); }
+    try { 
+        quizApp = firebase.app('quizApp'); 
+    } catch (e) { 
+        quizApp = firebase.initializeApp(firebaseConfig, 'quizApp'); 
+    }
     quizDb = quizApp.database();
+    console.log('Quiz: Firebase initialized');
 }
 
 function getTodayDate() {
@@ -66,6 +70,12 @@ function checkLoginStatus() {
         try {
             quizCurrentUser = JSON.parse(userData);
             console.log('Quiz: User logged in:', quizCurrentUser.name);
+            
+            // Pastikan Firebase sudah ready
+            if (!quizDb) {
+                initFirebase();
+            }
+            
             // Check if user has WhatsApp number
             checkWhatsAppNumber();
         } catch (e) {
@@ -88,6 +98,10 @@ function checkWhatsAppNumber() {
         } else {
             showWhatsAppForm();
         }
+    }).catch((error) => {
+        console.error('Error checking WhatsApp:', error);
+        // Jika error, langsung tampilkan form WhatsApp
+        showWhatsAppForm();
     });
 }
 
@@ -121,22 +135,36 @@ async function saveWhatsAppNumber(e) {
     const whatsapp = '+62' + waInput.replace(/^0+/, '');
     const oderId = quizCurrentUser.id || quizCurrentUser.email.replace(/[.@]/g, '_');
 
+    // Show loading
+    const btn = document.querySelector('.quiz-wa-btn');
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Menyimpan...';
+    }
+
     try {
         // Save to leaderboard
-        await quizDb.ref('quizLeaderboard/' + oderId).update({
+        await quizDb.ref('quizLeaderboard/' + oderId).set({
             oderId,
             name: quizCurrentUser.name,
             email: quizCurrentUser.email,
             picture: quizCurrentUser.picture || '',
             whatsapp: whatsapp,
             totalScore: 0,
-            quizCount: 0
+            quizCount: 0,
+            totalDuration: 0,
+            avgDuration: 0
         });
 
         quizCurrentUser.whatsapp = whatsapp;
         checkTodayQuiz();
     } catch (err) {
+        console.error('Error saving WhatsApp:', err);
         alert('Gagal menyimpan: ' + err.message);
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = 'Simpan & Mulai Quiz';
+        }
     }
 }
 window.saveWhatsAppNumber = saveWhatsAppNumber;
@@ -170,7 +198,7 @@ function checkTodayQuiz() {
 }
 
 function showAlreadyPlayed(result) {
-    const emoji = result.score >= 80 ? '🏆' : result.score >= 60 ? '👍' : ;
+    const emoji = result.score >= 80 ? '🏆' : result.score >= 60 ? '👍' : '💪';
     document.getElementById('quizContainer').innerHTML = `
         <div class="quiz-done">
             <div class="quiz-done-icon">${emoji}</div>
