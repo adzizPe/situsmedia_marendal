@@ -1,4 +1,4 @@
-// ===== Berita Page - List & Detail Mode =====
+﻿// ===== Berita Page - List & Detail Mode =====
 
 const firebaseBeritaConfig = {
     apiKey: "AIzaSyAAjCd2CvsfiRCVWcwNSmjNt_w3N4eVSbM",
@@ -113,7 +113,7 @@ Warga diimbau untuk tetap waspada mengingat cuaca masih belum stabil dan potensi
 }
 
 function renderNewsDetail(news) {
-    document.title = news.judul + ' - MarendalSatu';
+    document.title = news.judul + ' - Marendal';
     
     const images = Array.isArray(news.gambar) ? news.gambar : [news.gambar];
     const mediaTypes = news.mediaTypes || images.map(() => 'image');

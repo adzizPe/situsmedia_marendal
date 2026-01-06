@@ -1079,15 +1079,21 @@ img {
     background: var(--light-gray);
     display: flex;
     align-items: center;
+    position: relative;
+    z-index: 10;
   }
 
   .search-box button {
     order: -1;
+    pointer-events: auto;
   }
 
   .search-box input {
     width: 100%;
     font-size: 14px;
+    pointer-events: auto;
+    -webkit-user-select: text;
+    user-select: text;
   }
 
   .search-box button svg {
@@ -9789,9 +9795,17 @@ a.news-card-image video {
   }
 
   .search-box input {
-    pointer-events: auto;
+    pointer-events: auto !important;
     -webkit-user-select: text;
     user-select: text;
+    -webkit-appearance: none;
+    appearance: none;
+    touch-action: manipulation;
+  }
+
+  .search-box button {
+    pointer-events: auto !important;
+    touch-action: manipulation;
   }
 
   .search-dropdown {

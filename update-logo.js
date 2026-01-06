@@ -1,11 +1,11 @@
-const fs = require('fs');
+﻿const fs = require('fs');
 const path = require('path');
 
 // Old logo text to find
 const oldLogo = '<span class="logo-text">Marendal<span class="logo-accent">Satu</span></span>';
 
 // New logo image
-const newLogo = '<a href="/" class="logo-link"><img src="/assets/marendallogo.png" alt="MarendalSatu" class="logo-img"></a>';
+const newLogo = '<a href="/" class="logo-link"><img src="/assets/marendallogo.png" alt="Marendal" class="logo-img"></a>';
 
 // Find all HTML files recursively
 function findHtmlFiles(dir, files = []) {

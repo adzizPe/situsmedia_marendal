@@ -256,13 +256,20 @@ function initSearch() {
             }
         });
 
-        // Touch support for mobile
+        // Touch support for mobile - allow focus on input
         input.addEventListener('touchstart', (e) => {
-            e.stopPropagation();
-        });
+            // Don't stop propagation, just let the touch through
+            input.focus();
+        }, { passive: true });
 
         dropdown.addEventListener('touchstart', (e) => {
             e.stopPropagation();
+        }, { passive: true });
+
+        // Ensure input is focusable on mobile
+        input.addEventListener('click', (e) => {
+            e.stopPropagation();
+            input.focus();
         });
 
         // Focus - show dropdown if has results
