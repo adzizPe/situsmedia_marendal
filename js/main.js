@@ -219,10 +219,8 @@ function initSearch() {
 
                 if (results.length > 0) {
                     dropdown.innerHTML = results.map(news => {
-                        // Untuk berita contoh (hardcoded), gunakan path folder langsung
-                        const newsUrl = news.id === 'banjir-pesantren-aceh-tamiang' 
-                            ? `${getBeritaUrl()}Banjir%20Seret%20Banyak%20Gelondongan%20Kayu,%20Pesantren%20Darul%20Mukhlisin%20di%20Karang%20Baru%20Aceh%20Tamiang%20Terdampak/`
-                            : `${getBeritaUrl()}?${news.slug || news.id}`;
+                        // Semua berita pakai query string
+                        const newsUrl = `${getBeritaUrl()}?${news.slug || news.id}`;
                         return `
                         <a href="${newsUrl}" class="search-result-item">
                             <span class="search-result-title">${highlightMatch(news.judul, query)}</span>

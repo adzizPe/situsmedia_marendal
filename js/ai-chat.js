@@ -32,7 +32,7 @@ function initAIChat() {
 
     // Determine logo path based on current page depth
     const pathDepth = window.location.pathname.split('/').filter(p => p && !p.includes('.')).length;
-    const logoPath = pathDepth === 0 ? '../assets/marendallogo.png' : '../'.repeat(pathDepth) + '../assets/marendallogo.png';
+    const logoPath = pathDepth === 0 ? 'assets/marendallogo.png' : '../'.repeat(pathDepth) + 'assets/marendallogo.png';
 
     // Create chat widget HTML
     const widget = document.createElement('div');

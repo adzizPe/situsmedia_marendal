@@ -1011,86 +1011,74 @@ img {
     padding: 0 12px;
   }
 
-  /* Header Mobile - 2 rows layout */
+  /* Header Mobile - Clean layout like reference */
   .header-top {
-    padding: 10px 0;
+    padding: 12px 0;
     overflow: visible;
   }
 
-  .header-top .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  .header-top > .container {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-template-rows: auto auto auto;
+    gap: 10px;
     align-items: center;
-    row-gap: 10px;
     overflow: visible;
   }
 
-  /* Row 1: Logo left, auth+toggle right */
+  /* Row 1: Logo left, Auth + Toggle right */
   .logo {
-    order: 1;
-    flex-shrink: 0;
+    grid-column: 1;
+    grid-row: 1;
   }
 
-  .logo-text {
-    font-size: 1.4rem;
-  }
-
-  .header-right {
-    order: 2;
-    display: contents;
-  }
-
-  .date-time {
-    display: flex !important;
-    order: 10;
-    /* Push to last row */
-    width: 100%;
-    justify-content: center;
-    font-size: 0.75rem;
-    padding: 6px 0;
-    background: rgba(0, 0, 0, 0.03);
-    border-radius: 6px;
-    margin-top: 5px;
-    gap: 8px;
-  }
-
-  .date-time .live-time {
-    font-weight: 600;
-    color: var(--primary-green);
-  }
-
-  /* Auth & Toggle grouped right */
-  #authContainer {
-    order: 2;
-    margin-left: auto;
-  }
-
-  #authContainer .btn-login {
-    padding: 8px 14px;
-    font-size: 0.8rem;
-  }
-
-  .user-menu img {
-    width: 32px;
+  .logo-img {
     height: 32px;
   }
 
-  .theme-toggle {
-    order: 3;
-    width: 44px;
-    height: 26px;
-    flex-shrink: 0;
-    margin-left: 8px;
+  #authContainer {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
   }
 
-  /* Search bar - Row 2, full width */
+  #authContainer .btn-login,
+  #authContainer .login-btn-google {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+
+  .user-menu img,
+  .user-avatar {
+    width: 30px;
+    height: 30px;
+  }
+
+  .theme-toggle {
+    grid-column: 3;
+    grid-row: 1;
+    width: 40px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  /* Header right - reorder for mobile grid */
+  .header-right {
+    display: contents;
+  }
+
+  /* Row 2: Search full width */
   .search-box {
-    order: 4;
+    grid-column: 1 / -1;
+    grid-row: 2;
     width: 100%;
     padding: 10px 14px;
     border-radius: 25px;
     gap: 10px;
+    background: var(--light-gray);
+    display: flex;
+    align-items: center;
   }
 
   .search-box button {
@@ -1107,6 +1095,25 @@ img {
     height: 18px;
   }
 
+  /* Row 3: Date time centered */
+  .date-time {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    width: 100%;
+    display: flex !important;
+    justify-content: center;
+    font-size: 0.75rem;
+    padding: 8px 0;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 6px;
+    gap: 8px;
+  }
+
+  .date-time .live-time {
+    font-weight: 600;
+    color: var(--primary-green);
+  }
+
   /* Navbar Mobile - Horizontal scroll */
   .navbar {
     padding: 0;
@@ -1118,6 +1125,7 @@ img {
     gap: 0;
     overflow-x: auto;
     overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
   }
 
   .nav-item>a {

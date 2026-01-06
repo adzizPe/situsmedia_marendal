@@ -63,7 +63,35 @@ function loadNewsDetail(slug) {
         </div>
     `;
     
-    // Find by slug
+    // Check if it's the hardcoded news
+    if (slug === 'banjir-pesantren-aceh-tamiang') {
+        const hardcodedNews = {
+            id: 'banjir-pesantren-aceh-tamiang',
+            slug: 'banjir-pesantren-aceh-tamiang',
+            judul: 'Banjir Seret Banyak Gelondongan Kayu, Pesantren Darul Mukhlisin di Karang Baru Aceh Tamiang Terdampak',
+            kategori: 'bencana',
+            lokasi: 'Karang Baru, Aceh Tamiang',
+            tanggal: '2025-12-20',
+            penerbit: 'Admin',
+            gambar: ['../assets/2.png'],
+            mediaTypes: ['image'],
+            deskripsi: `Banjir menerjang kawasan Pesantren Darul Mukhlisin yang berada di Kecamatan Karang Baru, Kabupaten Aceh Tamiang pada Jumat (20/12/2025).
+
+Banjir yang terjadi akibat hujan deras selama beberapa hari terakhir menyebabkan air sungai meluap dan membawa banyak gelondongan kayu ke area pesantren.
+
+Menurut keterangan warga setempat, banjir mulai melanda kawasan tersebut sejak dini hari dan terus meninggi hingga pagi hari. Gelondongan kayu yang terbawa arus sungai menambah kerusakan yang terjadi.
+
+Para santri dan pengurus pesantren telah dievakuasi ke tempat yang lebih aman. Saat ini, pihak BPBD setempat sedang melakukan pendataan kerusakan dan memberikan bantuan kepada korban terdampak.
+
+Warga diimbau untuk tetap waspada mengingat cuaca masih belum stabil dan potensi banjir susulan masih ada.`,
+            status: 'approved'
+        };
+        renderNewsDetail(hardcodedNews);
+        loadRelatedNews(hardcodedNews.kategori, hardcodedNews.id);
+        return;
+    }
+    
+    // Find by slug from Firebase
     beritaDatabase.ref('newsSubmissions').orderByChild('slug').equalTo(slug).once('value', (snapshot) => {
         let news = null;
         snapshot.forEach((child) => { news = child.val(); });
@@ -222,13 +250,13 @@ function renderNewsGrid(publishedNews = []) {
     // Berita contoh (hardcoded)
     let html = `
         <article class="news-card-full" data-kategori="bencana" data-title="banjir seret banyak gelondongan kayu pesantren darul mukhlisin karang baru aceh tamiang terdampak">
-            <a href="./Banjir%20Seret%20Banyak%20Gelondongan%20Kayu,%20Pesantren%20Darul%20Mukhlisin%20di%20Karang%20Baru%20Aceh%20Tamiang%20Terdampak/" class="news-card-image">
+            <a href="./?banjir-pesantren-aceh-tamiang" class="news-card-image">
                 <span class="region-badge">ACEH</span>
                 <img src="../assets/2.png" alt="Banjir Pesantren Aceh Tamiang">
             </a>
             <div class="news-card-content">
                 <span class="news-card-category">Bencana</span>
-                <h3 class="news-card-title"><a href="./Banjir%20Seret%20Banyak%20Gelondongan%20Kayu,%20Pesantren%20Darul%20Mukhlisin%20di%20Karang%20Baru%20Aceh%20Tamiang%20Terdampak/">Banjir Seret Banyak Gelondongan Kayu, Pesantren Darul Mukhlisin di Karang Baru Aceh Tamiang Terdampak</a></h3>
+                <h3 class="news-card-title"><a href="./?banjir-pesantren-aceh-tamiang">Banjir Seret Banyak Gelondongan Kayu, Pesantren Darul Mukhlisin di Karang Baru Aceh Tamiang Terdampak</a></h3>
                 <p class="news-card-excerpt">Banjir menerjang kawasan Pesantren Darul Mukhlisin yang berada di Kecamatan Karang Baru, Kabupaten Aceh Tamiang...</p>
                 <span class="news-card-meta">📅 20 Des 2025 • 📍 Karang Baru, Aceh Tamiang</span>
             </div>
