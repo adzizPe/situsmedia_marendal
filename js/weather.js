@@ -96,12 +96,18 @@ async function fetchAllWeather() {
 async function updateWeatherTicker() {
     const ticker = document.getElementById('weatherTicker');
     const updateEl = document.getElementById('weatherUpdate');
+    const mobileDateEl = document.getElementById('weatherDateMobile');
     if (!ticker) return;
     
     ticker.innerHTML = '<span class="ticker-item">Memuat info cuaca...</span>';
     
     try {
         const weatherData = await fetchAllWeather();
+        
+        // Update mobile date dengan label "Ramalan Cuaca"
+        if (mobileDateEl) {
+            mobileDateEl.innerHTML = `🌤️ Ramalan Cuaca`;
+        }
         
         let html = '';
         weatherData.forEach(w => {

@@ -250,13 +250,13 @@ function renderNewsGrid(publishedNews = []) {
     // Berita contoh (hardcoded)
     let html = `
         <article class="news-card-full" data-kategori="bencana" data-title="banjir seret banyak gelondongan kayu pesantren darul mukhlisin karang baru aceh tamiang terdampak">
-            <a href="./?banjir-pesantren-aceh-tamiang" class="news-card-image">
+            <a href="./Banjir%20Seret%20Banyak%20Gelondongan%20Kayu,%20Pesantren%20Darul%20Mukhlisin%20di%20Karang%20Baru%20Aceh%20Tamiang%20Terdampak/" class="news-card-image">
                 <span class="region-badge">ACEH</span>
                 <img src="../assets/2.png" alt="Banjir Pesantren Aceh Tamiang">
             </a>
             <div class="news-card-content">
                 <span class="news-card-category">Bencana</span>
-                <h3 class="news-card-title"><a href="./?banjir-pesantren-aceh-tamiang">Banjir Seret Banyak Gelondongan Kayu, Pesantren Darul Mukhlisin di Karang Baru Aceh Tamiang Terdampak</a></h3>
+                <h3 class="news-card-title"><a href="./Banjir%20Seret%20Banyak%20Gelondongan%20Kayu,%20Pesantren%20Darul%20Mukhlisin%20di%20Karang%20Baru%20Aceh%20Tamiang%20Terdampak/">Banjir Seret Banyak Gelondongan Kayu, Pesantren Darul Mukhlisin di Karang Baru Aceh Tamiang Terdampak</a></h3>
                 <p class="news-card-excerpt">Banjir menerjang kawasan Pesantren Darul Mukhlisin yang berada di Kecamatan Karang Baru, Kabupaten Aceh Tamiang...</p>
                 <span class="news-card-meta">📅 20 Des 2025 • 📍 Karang Baru, Aceh Tamiang</span>
             </div>

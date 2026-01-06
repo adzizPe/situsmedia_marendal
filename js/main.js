@@ -37,17 +37,7 @@ function updateDateTime() {
         dateTimeElement.innerHTML = `<span id="current-date">${dateStr}</span> <span id="current-time" class="live-time">${timeStr}</span>`;
     }
 
-    // Update mobile weather date
-    const mobileDateEl = document.getElementById('weatherDateMobile');
-    if (mobileDateEl) {
-        const shortDate = now.toLocaleDateString('id-ID', {
-            weekday: 'short',
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric'
-        });
-        mobileDateEl.textContent = '📅 ' + shortDate;
-    }
+    // weatherDateMobile sekarang diupdate oleh weather.js dengan data cuaca
 }
 
 // Alias untuk backward compatibility
@@ -219,8 +209,10 @@ function initSearch() {
 
                 if (results.length > 0) {
                     dropdown.innerHTML = results.map(news => {
-                        // Semua berita pakai query string
-                        const newsUrl = `${getBeritaUrl()}?${news.slug || news.id}`;
+                        // Untuk berita hardcoded, gunakan folder path
+                        const newsUrl = news.id === 'banjir-pesantren-aceh-tamiang' 
+                            ? `${getBeritaUrl()}Banjir%20Seret%20Banyak%20Gelondongan%20Kayu,%20Pesantren%20Darul%20Mukhlisin%20di%20Karang%20Baru%20Aceh%20Tamiang%20Terdampak/`
+                            : `${getBeritaUrl()}detail/?id=${news.slug || news.id}`;
                         return `
                         <a href="${newsUrl}" class="search-result-item">
                             <span class="search-result-title">${highlightMatch(news.judul, query)}</span>
@@ -465,38 +457,87 @@ function initSorotanSlider() {
     const prevBtn = document.getElementById('sorotanPrev');
     const nextBtn = document.getElementById('sorotanNext');
 
-    if (!track || !prevBtn || !nextBtn) return;
+    if (!track) return;
 
-    const scrollAmount = 300;
+    const scrollAmount = 200;
+    const autoScrollDelay = 4000; // 4 detik delay antar scroll
+    const scrollDuration = 800; // durasi animasi scroll (ms)
 
-    prevBtn.addEventListener('click', () => {
-        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    });
+    // Custom smooth scroll dengan easing
+    function smoothScrollTo(element, targetScroll, duration) {
+        const startScroll = element.scrollLeft;
+        const distance = targetScroll - startScroll;
+        const startTime = performance.now();
 
-    nextBtn.addEventListener('click', () => {
-        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    });
-
-    // Auto scroll every 5 seconds
-    let autoScroll = setInterval(() => {
-        if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
-            track.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-            track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        function easeInOutCubic(t) {
+            return t < 0.5 
+                ? 4 * t * t * t 
+                : 1 - Math.pow(-2 * t + 2, 3) / 2;
         }
-    }, 5000);
 
-    // Pause auto scroll on hover
-    track.addEventListener('mouseenter', () => clearInterval(autoScroll));
-    track.addEventListener('mouseleave', () => {
-        autoScroll = setInterval(() => {
-            if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
-                track.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-                track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        function animate(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easedProgress = easeInOutCubic(progress);
+            
+            element.scrollLeft = startScroll + (distance * easedProgress);
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
             }
-        }, 5000);
-    });
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            const targetScroll = Math.max(0, track.scrollLeft - scrollAmount);
+            smoothScrollTo(track, targetScroll, scrollDuration);
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            const maxScroll = track.scrollWidth - track.clientWidth;
+            const targetScroll = Math.min(maxScroll, track.scrollLeft + scrollAmount);
+            smoothScrollTo(track, targetScroll, scrollDuration);
+        });
+    }
+
+    // Auto scroll dengan delay dan smooth animation
+    let autoScroll = setInterval(() => {
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        
+        if (track.scrollLeft >= maxScroll - 10) {
+            // Smooth reset ke awal dengan delay
+            smoothScrollTo(track, 0, scrollDuration * 1.5);
+        } else {
+            const targetScroll = Math.min(maxScroll, track.scrollLeft + scrollAmount);
+            smoothScrollTo(track, targetScroll, scrollDuration);
+        }
+    }, autoScrollDelay);
+
+    // Pause auto scroll on hover/touch
+    track.addEventListener('mouseenter', () => clearInterval(autoScroll));
+    track.addEventListener('touchstart', () => clearInterval(autoScroll), { passive: true });
+    
+    const resumeAutoScroll = () => {
+        clearInterval(autoScroll);
+        autoScroll = setInterval(() => {
+            const maxScroll = track.scrollWidth - track.clientWidth;
+            
+            if (track.scrollLeft >= maxScroll - 10) {
+                smoothScrollTo(track, 0, scrollDuration * 1.5);
+            } else {
+                const targetScroll = Math.min(maxScroll, track.scrollLeft + scrollAmount);
+                smoothScrollTo(track, targetScroll, scrollDuration);
+            }
+        }, autoScrollDelay);
+    };
+    
+    track.addEventListener('mouseleave', resumeAutoScroll);
+    track.addEventListener('touchend', () => setTimeout(resumeAutoScroll, 2000), { passive: true });
 }
 
 // ===== Copy Link Function =====
