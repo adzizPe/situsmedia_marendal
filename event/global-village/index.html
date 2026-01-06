@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Village 3.0 - Musical Drama | MarendalSatu</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/ai-chat.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        .event-detail-page {
+            padding: 20px 0 40px;
+        }
+
+        /* Breadcrumb */
+        .event-breadcrumb {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .event-breadcrumb a {
+            color: var(--primary);
+        }
+
+        .event-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hero Section */
+        .event-detail-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            background: #1a1a2e;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .event-detail-img {
+            height: 100%;
+            min-height: 280px;
+        }
+
+        .event-detail-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .event-detail-info {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .event-detail-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .event-detail-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.9rem;
+        }
+
+        .event-detail-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .event-detail-price {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .event-detail-price span {
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .event-detail-price strong {
+            font-size: 1.3rem;
+            color: #4ade80;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Content Layout */
+        .event-content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        /* Detail Section */
+        .event-section {
+            margin-bottom: 30px;
+        }
+
+        .event-section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .event-description {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-body);
+        }
+
+        .event-description p {
+            margin-bottom: 15px;
+        }
+
+        /* Location */
+        .event-map {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            background: #e5e5e5;
+        }
+
+        .event-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .event-address {
+            font-size: 0.9rem;
+            color: var(--text-body);
+            line-height: 1.6;
+        }
+
+        .event-address strong {
+            display: block;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        /* Requirements */
+        .event-requirements ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .event-requirements li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--text-body);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .event-requirements li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Sidebar */
+        .event-sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .event-share {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .event-share h4 {
+            font-size: 1rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .share-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .share-btn.wa {
+            background: #25D366;
+        }
+
+        .share-btn.tg {
+            background: #0088cc;
+        }
+
+        .share-btn.fb {
+            background: #1877F2;
+        }
+
+        .share-btn.tw {
+            background: #000;
+        }
+
+        /* Register Button */
+        .event-register {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .btn-register {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-register:hover {
+            background: var(--primary-dark);
+        }
+
+        .event-register p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Dark Mode */
+        [data-theme="dark"] .event-detail-hero {
+            background: #0f0f1a;
+        }
+
+        [data-theme="dark"] .event-section-title {
+            color: #fff;
+            border-bottom-color: #333;
+        }
+
+        [data-theme="dark"] .event-share,
+        [data-theme="dark"] .event-register {
+            background: #111;
+            border-color: #222;
+        }
+
+        [data-theme="dark"] .event-share h4 {
+            color: #fff;
+        }
+
+        [data-theme="dark"] .event-requirements li {
+            border-bottom-color: #222;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .event-detail-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .event-detail-img {
+                min-height: 200px;
+            }
+
+            .event-detail-info {
+                padding: 20px;
+            }
+
+            .event-detail-title {
+                font-size: 1.2rem;
+            }
+
+            .event-content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .event-sidebar {
+                position: static;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+
+            .event-share,
+            .event-register {
+                margin-bottom: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .event-sidebar {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="g_id_onload" data-client_id="830162422312-5h3nq1bohtktfhg4ksodt0jjsbeuria9.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse" data-auto_prompt="false">
+    </div>
+
+    <!-- Live Visitor Counter -->
+    <div class="visitor-counter" id="visitorCounter">
+        <div class="visitor-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+        </div>
+        <span class="visitor-count" id="visitorCount">0</span>
+        <span class="visitor-label">visitors</span>
+        <span class="visitor-live-dot"></span>
+    </div>
+
+    <div class="page-loader" id="pageLoader">
+        <span class="loader"></span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../">
+                        <img src="../../assets/marendallogo.png" alt="MarendalSatu" class="logo-img">
+                    </a>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <input type="text" placeholder="Cari berita...">
+                        <button type="button" title="Cari">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.3-4.3"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="authContainer"></div>
+                    <button type="button" class="theme-toggle" id="themeToggle" title="Ganti Tema">
+                        <span class="theme-icon light">☀️</span>
+                        <span class="theme-icon dark">🌙</span>
+                    </button>
+                    <div class="date-time">
+                        <span id="current-date"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar">
+            <div class="container">
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="../../">BERANDA</a></li>
+                    <li class="nav-item"><a href="../../berita/">BERITA</a></li>
+                    <li class="nav-item"><a href="../../umkm/">UMKM</a></li>
+                    <li class="nav-item active"><a href="../">EVENT</a></li>
+                    <li class="nav-item"><a href="../../kirim-berita/">KIRIM BERITA</a></li>
+                    <li class="nav-item has-submenu">
+                        <a href="../../quiz/">QUIZ BERITA</a>
+                        <ul class="submenu">
+                            <li><a href="../../quiz/">Quiz Harian</a></li>
+                            <li><a href="../../quiz/leaderboard/">Papan Peringkat</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="../../tentang-kami/">TENTANG KAMI</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="event-detail-page">
+
+                <!-- Breadcrumb -->
+                <div class="event-breadcrumb">
+                    <a href="../">Event</a> › Detail Event
+                </div>
+
+                <!-- Hero -->
+                <div class="event-detail-hero">
+                    <div class="event-detail-img">
+                        <img src="../../assets/global-village.png" alt="Global Village 3.0">
+                    </div>
+                    <div class="event-detail-info">
+                        <h1 class="event-detail-title">Global Village 3.0 - Musical Drama</h1>
+                        <div class="event-detail-meta">
+                            <span>📅 24 Januari 2026</span>
+                            <span>🕐 Waktu akan diumumkan</span>
+                            <span>📍 Universitas Sumatera Utara, Medan</span>
+                        </div>
+                        <div class="event-detail-price">
+                            <span>Harga Tiket:</span>
+                            <strong>Rp 25.000</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="event-content-grid">
+                    <div class="event-main">
+
+                        <!-- Detail Event -->
+                        <div class="event-section">
+                            <h2 class="event-section-title">Detail Event</h2>
+                            <div class="event-description">
+                                <p>🎤 <strong>Musical Drama in Medan is Coming!</strong></p>
+                                <p>The curtain has risen, where diverse cultures share the same spotlight! Mari
+                                    bergabung dalam Global Village 3.0, sebuah acara drama musikal dan storytelling yang
+                                    menghadirkan keberagaman budaya dari berbagai negara.</p>
+                                <p>Keliling dunia dalam satu hari! Rasakan pengalaman budaya yang berbeda melalui
+                                    pertunjukan musik, drama, dan cerita yang dibawakan langsung di atas panggung. Acara
+                                    ini diselenggarakan oleh AIESEC in USU (Universitas Sumatera Utara).</p>
+                                <p><strong>✨ OPEN FOR PUBLIC ✨</strong></p>
+                            </div>
+                        </div>
+
+                        <!-- Lokasi Event -->
+                        <div class="event-section">
+                            <h2 class="event-section-title">Lokasi Event</h2>
+                            <div class="event-map">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.0!2d98.65!3d3.56!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM8KwMzMnMzYuMCJOIDk4wrAzOScwMC4wIkU!5e0!3m2!1sen!2sid!4v1234567890"
+                                    allowfullscreen="" loading="lazy"></iframe>
+                            </div>
+                            <div class="event-address">
+                                <strong>Universitas Sumatera Utara</strong>
+                                Jl. Dr. T. Mansur No.9, Padang Bulan, Kec. Medan Baru, Kota Medan, Sumatera Utara 20155
+                            </div>
+                        </div>
+
+                        <!-- Syarat dan Ketentuan -->
+                        <div class="event-section">
+                            <h2 class="event-section-title">Informasi Pendaftaran</h2>
+                            <div class="event-requirements">
+                                <ul>
+                                    <li>Pendaftaran dibuka: 1 - 20 Januari 2026</li>
+                                    <li>Hari pelaksanaan: 24 Januari 2026</li>
+                                    <li>Harga tiket: Rp 25.000</li>
+                                    <li>Terbuka untuk umum (Open for Public)</li>
+                                    <li>Mengisi formulir pendaftaran online</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="event-sidebar">
+
+                        <!-- Share -->
+                        <div class="event-share">
+                            <h4>Bagikan Event</h4>
+                            <div class="share-buttons">
+                                <a href="https://wa.me/?text=Global%20Village%203.0%20-%20Musical%20Drama%20di%20USU%20Medan!%20https://adzizpe.github.io/situsberita_marendal/event/global-village/"
+                                    target="_blank" rel="noopener" class="share-btn wa">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path
+                                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                                    </svg>
+                                </a>
+                                <a href="https://t.me/share/url?url=https://adzizpe.github.io/situsberita_marendal/event/global-village/&text=Global%20Village%203.0%20-%20Musical%20Drama"
+                                    target="_blank" rel="noopener" class="share-btn tg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path
+                                            d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                                    </svg>
+                                </a>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://adzizpe.github.io/situsberita_marendal/event/global-village/"
+                                    target="_blank" rel="noopener" class="share-btn fb">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path
+                                            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                    </svg>
+                                </a>
+                                <a href="https://twitter.com/intent/tweet?text=Global%20Village%203.0%20-%20Musical%20Drama%20di%20USU%20Medan!&url=https://adzizpe.github.io/situsberita_marendal/event/global-village/"
+                                    target="_blank" rel="noopener" class="share-btn tw">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path
+                                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Register -->
+                        <div class="event-register">
+                            <a href="https://s.AIESEC.or.id/RegistForm-Glovil-Winter-USU" target="_blank" rel="noopener"
+                                class="btn-register">
+                                Daftar Sekarang
+                            </a>
+                            <p>Pendaftaran: 1 - 20 Jan 2026</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="../../"><img src="../../assets/marendallogo.png" alt="MarendalSatu" class="logo-img"></a>
+                        <p>Media berita terpercaya untuk masyarakat Sumatera Utara. Menyajikan informasi terkini,
+                            akurat, dan berimbang seputar Sumatera Utara.</p>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg></a>
+                            <a href="#" aria-label="X"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                    viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                </svg></a>
+                            <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg></a>
+                            <a href="#" aria-label="YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                                </svg></a>
+                        </div>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">Kategori</h4>
+                        <ul class="footer-links">
+                            <li><a href="../../berita/">Berita</a></li>
+                            <li><a href="../../berita/?kategori=politik">Politik</a></li>
+                            <li><a href="../../berita/?kategori=ekonomi">Ekonomi</a></li>
+                            <li><a href="../../berita/?kategori=olahraga">Olahraga</a></li>
+                            <li><a href="../../berita/?kategori=hiburan">Hiburan</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">Layanan</h4>
+                        <ul class="footer-links">
+                            <li><a href="../../umkm/">UMKM</a></li>
+                            <li><a href="../">Event</a></li>
+                            <li><a href="../../kirim-berita/">Kirim Berita</a></li>
+                            <li><a href="../../kirim-event/">Kirim Event</a></li>
+                            <li><a href="../../quiz/">Quiz Berita</a></li>
+                            <li><a href="../../quiz/leaderboard/">Papan Peringkat</a></li>
+                            <li><a href="#">Iklan</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">Tentang</h4>
+                        <ul class="footer-links">
+                            <li><a href="../../tentang-kami/">Tentang Kami</a></li>
+                            <li><a href="#">Redaksi</a></li>
+                            <li><a href="#">Kontak</a></li>
+                            <li><a href="#">Kebijakan Privasi</a></li>
+                            <li><a href="#">Syarat & Ketentuan</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 MarendalSatu. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script type="module" src="../../js/firebase-users.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/ai-chat.js"></script>
+    <script src="../../js/visitor-counter.js" type="module"></script>
+</body>
+
+</html>

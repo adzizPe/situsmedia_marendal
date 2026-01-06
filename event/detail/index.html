@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Event - MarendalSatu</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/ai-chat.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        .ed-page {
+            padding: 30px 0;
+        }
+
+        /* Breadcrumb */
+        .ed-breadcrumb {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .ed-breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .ed-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .ed-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+
+        /* Hero Section */
+        .ed-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            background: #1a1a2e;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .ed-hero-img {
+            height: 100%;
+            min-height: 280px;
+        }
+
+        .ed-hero-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ed-hero-info {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .ed-hero-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .ed-hero-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.9rem;
+        }
+
+        .ed-hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ed-hero-price {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .ed-hero-price span {
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .ed-hero-price strong {
+            font-size: 1.3rem;
+            color: #4ade80;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Content */
+        .ed-main {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .ed-section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .ed-desc {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-body);
+            white-space: pre-line;
+        }
+
+        /* Sidebar */
+        .ed-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .ed-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .ed-box h4 {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .ed-register {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 15px;
+        }
+
+        .ed-register:hover {
+            background: var(--primary-dark);
+        }
+
+        .ed-contact {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .ed-contact-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .ed-contact-value {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .ed-share {
+            display: flex;
+            gap: 10px;
+        }
+
+        .ed-share-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-card);
+            color: var(--text-body);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .ed-share-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .ed-info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .ed-info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .ed-info-label {
+            color: var(--text-muted);
+        }
+
+        .ed-info-value {
+            color: var(--text-dark);
+            font-weight: 500;
+            text-align: right;
+            max-width: 60%;
+        }
+
+        .ed-loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .ed-not-found {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .ed-not-found h2 {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .ed-not-found p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* Dark Mode */
+        [data-theme="dark"] .ed-hero {
+            background: #0f0f1a;
+        }
+
+        [data-theme="dark"] .ed-main,
+        [data-theme="dark"] .ed-box {
+            background: #111;
+            border-color: #222;
+        }
+
+        [data-theme="dark"] .ed-section-title,
+        [data-theme="dark"] .ed-box h4,
+        [data-theme="dark"] .ed-info-value,
+        [data-theme="dark"] .ed-contact-value {
+            color: #fff;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .ed-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .ed-hero-img {
+                min-height: 200px;
+            }
+
+            .ed-hero-info {
+                padding: 20px;
+            }
+
+            .ed-hero-title {
+                font-size: 1.2rem;
+            }
+
+            .ed-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .ed-main {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="g_id_onload" data-client_id="830162422312-5h3nq1bohtktfhg4ksodt0jjsbeuria9.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse" data-auto_prompt="false">
+    </div>
+
+    <!-- Live Visitor Counter -->
+    <div class="visitor-counter" id="visitorCounter">
+        <div class="visitor-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+        </div>
+        <span class="visitor-count" id="visitorCount">0</span>
+        <span class="visitor-label">visitors</span>
+        <span class="visitor-live-dot"></span>
+    </div>
+
+    <div class="page-loader" id="pageLoader">
+        <span class="loader"></span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../">
+                        <img src="../../assets/marendallogo.png" alt="MarendalSatu" class="logo-img">
+                    </a>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <input type="text" placeholder="Cari berita...">
+                        <button type="button" title="Cari">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.3-4.3"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="authContainer"></div>
+                    <button type="button" class="theme-toggle" id="themeToggle" title="Ganti Tema">
+                        <span class="theme-icon light">☀️</span>
+                        <span class="theme-icon dark">🌙</span>
+                    </button>
+                    <div class="date-time">
+                        <span id="current-date"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar">
+            <div class="container">
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="../../">BERANDA</a></li>
+                    <li class="nav-item"><a href="../../berita/">BERITA</a></li>
+                    <li class="nav-item"><a href="../../umkm/">UMKM</a></li>
+                    <li class="nav-item active"><a href="../">EVENT</a></li>
+                    <li class="nav-item"><a href="../../kirim-berita/">KIRIM BERITA</a></li>
+                    <li class="nav-item has-submenu">
+                        <a href="../../quiz/">QUIZ BERITA</a>
+                        <ul class="submenu">
+                            <li><a href="../../quiz/">Quiz Harian</a></li>
+                            <li><a href="../../quiz/leaderboard/">Papan Peringkat</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="../../tentang-kami/">TENTANG KAMI</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="ed-page">
+                <div class="ed-breadcrumb">
+                    <a href="../">Event</a> › Detail Event
+                </div>
+
+                <div id="eventContent">
+                    <div class="ed-loading">Memuat event...</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="../../"><img src="../../assets/marendallogo.png" alt="MarendalSatu" class="logo-img"></a>
+                        <p>Media berita terpercaya untuk masyarakat Sumatera Utara. Menyajikan informasi terkini,
+                            akurat, dan berimbang seputar Sumatera Utara.</p>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg></a>
+                            <a href="#" aria-label="X"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                    viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                </svg></a>
+                            <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg></a>
+                            <a href="#" aria-label="YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                                </svg></a>
+                        </div>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">Kategori</h4>
+                        <ul class="footer-links">
+                            <li><a href="../../berita/">Berita</a></li>
+                            <li><a href="../../berita/?kategori=politik">Politik</a></li>
+                            <li><a href="../../berita/?kategori=ekonomi">Ekonomi</a></li>
+                            <li><a href="../../berita/?kategori=olahraga">Olahraga</a></li>
+                            <li><a href="../../berita/?kategori=hiburan">Hiburan</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">Layanan</h4>
+                        <ul class="footer-links">
+                            <li><a href="../../umkm/">UMKM</a></li>
+                            <li><a href="../">Event</a></li>
+                            <li><a href="../../kirim-berita/">Kirim Berita</a></li>
+                            <li><a href="../../kirim-event/">Kirim Event</a></li>
+                            <li><a href="../../quiz/">Quiz Berita</a></li>
+                            <li><a href="../../quiz/leaderboard/">Papan Peringkat</a></li>
+                            <li><a href="#">Iklan</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">Tentang</h4>
+                        <ul class="footer-links">
+                            <li><a href="../../tentang-kami/">Tentang Kami</a></li>
+                            <li><a href="#">Redaksi</a></li>
+                            <li><a href="#">Kontak</a></li>
+                            <li><a href="#">Kebijakan Privasi</a></li>
+                            <li><a href="#">Syarat & Ketentuan</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 MarendalSatu. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script type="module" src="../../js/firebase-users.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAAjCd2CvsfiRCVWcwNSmjNt_w3N4eVSbM",
+            databaseURL: "https://login-fe9bf-default-rtdb.firebaseio.com",
+            projectId: "login-fe9bf"
+        };
+
+        let eventDetailApp;
+        try { eventDetailApp = firebase.app('eventDetailApp'); }
+        catch (e) { eventDetailApp = firebase.initializeApp(firebaseConfig, 'eventDetailApp'); }
+
+        const eventDetailDb = eventDetailApp.database();
+
+        function getEventId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id');
+        }
+
+        function loadEventDetail() {
+            const eventId = getEventId();
+            const container = document.getElementById('eventContent');
+
+            if (!eventId) {
+                showNotFound(container);
+                return;
+            }
+
+            eventDetailDb.ref('eventSubmissions/' + eventId).once('value', (snapshot) => {
+                const event = snapshot.val();
+
+                if (!event || event.status !== 'approved') {
+                    showNotFound(container);
+                    return;
+                }
+
+                document.title = event.name + ' - MarendalSatu';
+                renderEventDetail(container, event);
+            });
+        }
+
+        function showNotFound(container) {
+            container.innerHTML = `
+                <div class="ed-not-found">
+                    <h2>Event Tidak Ditemukan</h2>
+                    <p>Event yang Anda cari tidak tersedia atau sudah dihapus.</p>
+                    <a href="../" class="ed-register">Lihat Event Lainnya</a>
+                </div>
+            `;
+        }
+
+        function renderEventDetail(container, event) {
+            const eventDate = new Date(event.date);
+            const formattedDate = eventDate.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+            const pageUrl = encodeURIComponent(window.location.href);
+            const shareText = encodeURIComponent(event.name + ' - ' + formattedDate);
+
+            container.innerHTML = `
+                <!-- Hero -->
+                <div class="ed-hero">
+                    <div class="ed-hero-img">
+                        <img src="${event.image || 'https://placehold.co/800x450/ddd/999?text=Event'}" alt="${escapeHtml(event.name)}" onerror="this.src='https://placehold.co/800x450/ddd/999?text=Event'">
+                    </div>
+                    <div class="ed-hero-info">
+                        <h1 class="ed-hero-title">${escapeHtml(event.name)}</h1>
+                        <div class="ed-hero-meta">
+                            <span>📅 ${formattedDate}</span>
+                            <span>🕐 ${event.time || 'TBA'}</span>
+                            <span>📍 ${escapeHtml(event.location)}</span>
+                        </div>
+                        <div class="ed-hero-price">
+                            <span>Harga Tiket:</span>
+                            <strong>${escapeHtml(event.price || 'Gratis')}</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                <div class="ed-layout">
+                    <div class="ed-main">
+                        <h2 class="ed-section-title">Detail Event</h2>
+                        <div class="ed-desc">${escapeHtml(event.description)}</div>
+                    </div>
+                    
+                    <aside class="ed-sidebar">
+                        <div class="ed-box">
+                            <h4>📋 Informasi</h4>
+                            <div class="ed-info-row">
+                                <span class="ed-info-label">Kategori</span>
+                                <span class="ed-info-value">${escapeHtml(event.category || '-')}</span>
+                            </div>
+                            <div class="ed-info-row">
+                                <span class="ed-info-label">Tanggal</span>
+                                <span class="ed-info-value">${formattedDate}</span>
+                            </div>
+                            <div class="ed-info-row">
+                                <span class="ed-info-label">Waktu</span>
+                                <span class="ed-info-value">${event.time || 'TBA'}</span>
+                            </div>
+                            <div class="ed-info-row">
+                                <span class="ed-info-label">Lokasi</span>
+                                <span class="ed-info-value">${escapeHtml(event.location)}</span>
+                            </div>
+                            <div class="ed-info-row">
+                                <span class="ed-info-label">Harga</span>
+                                <span class="ed-info-value">${escapeHtml(event.price || 'Gratis')}</span>
+                            </div>
+                            
+                            ${event.link ? `<a href="${event.link}" target="_blank" class="ed-register">Daftar Sekarang</a>` : ''}
+                            
+                            ${event.contact ? `
+                            <div class="ed-contact">
+                                <div class="ed-contact-label">Kontak Penyelenggara</div>
+                                <div class="ed-contact-value">${escapeHtml(event.contact)}</div>
+                            </div>
+                            ` : ''}
+                        </div>
+                        
+                        <div class="ed-box">
+                            <h4>🔗 Bagikan Event</h4>
+                            <div class="ed-share">
+                                <a href="https://wa.me/?text=${shareText}%20${pageUrl}" target="_blank" class="ed-share-btn">WhatsApp</a>
+                                <a href="https://twitter.com/intent/tweet?text=${shareText}&url=${pageUrl}" target="_blank" class="ed-share-btn">X</a>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=${pageUrl}" target="_blank" class="ed-share-btn">Facebook</a>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            `;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        document.addEventListener('DOMContentLoaded', loadEventDetail);
+    </script>
+    <script src="../../js/visitor-counter.js" type="module"></script>
+</body>
+
+</html>

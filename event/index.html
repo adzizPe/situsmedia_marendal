@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event & Acara - MarendalSatu</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/ai-chat.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        /* Event Page Custom Styles */
+        .event-page {
+            padding: 0;
+        }
+
+        /* Hero Banner Slider */
+        .event-hero {
+            background: #1a1a1a;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .event-banner {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 21/9;
+            max-height: 380px;
+        }
+
+        .event-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .event-banner-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+        }
+
+        .event-banner-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .event-banner-info {
+            display: flex;
+            gap: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        /* Section Title */
+        .event-section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .event-section-title::before {
+            content: "";
+            width: 4px;
+            height: 22px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* Event List */
+        .event-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .event-item {
+            display: flex;
+            gap: 15px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 15px;
+            border: 1px solid var(--border);
+            transition: box-shadow 0.2s;
+        }
+
+        .event-item:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .event-item-img {
+            width: 140px;
+            height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .event-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .event-item-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .event-item-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .event-item-loc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .event-item-date {
+            display: flex;
+            gap: 15px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .event-status {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 8px;
+            width: fit-content;
+        }
+
+        .event-status.upcoming {
+            background: #e8f5ec;
+            color: #2d8a4e;
+        }
+
+        .event-status.ended {
+            background: #f0f0f0;
+            color: #888;
+        }
+
+        /* Empty State */
+        .event-empty {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .event-empty-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .event-empty h3 {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .event-empty p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Dark Mode */
+        [data-theme="dark"] .event-hero {
+            background: #0a0a0a;
+        }
+
+        [data-theme="dark"] .event-section-title {
+            color: #fff;
+            border-bottom-color: #333;
+        }
+
+        [data-theme="dark"] .event-item {
+            background: #111;
+            border-color: #222;
+        }
+
+        [data-theme="dark"] .event-item-title {
+            color: #fff;
+        }
+
+        [data-theme="dark"] .event-empty {
+            background: #111;
+            border-color: #222;
+        }
+
+        [data-theme="dark"] .event-empty h3 {
+            color: #fff;
+        }
+
+        [data-theme="dark"] .event-status.upcoming {
+            background: #1a3d2a;
+        }
+
+        [data-theme="dark"] .event-status.ended {
+            background: #222;
+            color: #666;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .event-hero {
+                padding: 15px 0;
+                margin-bottom: 20px;
+            }
+
+            .event-banner {
+                aspect-ratio: 16/9;
+                border-radius: 8px;
+            }
+
+            .event-banner-overlay {
+                padding: 20px;
+            }
+
+            .event-banner-title {
+                font-size: 1.1rem;
+            }
+
+            .event-banner-info {
+                flex-direction: column;
+                gap: 5px;
+                font-size: 0.8rem;
+            }
+
+            .event-list {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .event-item {
+                padding: 12px;
+            }
+
+            .event-item-img {
+                width: 100px;
+                height: 80px;
+            }
+
+            .event-item-title {
+                font-size: 0.92rem;
+            }
+
+            .event-item-loc,
+            .event-item-date {
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Submit Button */
+        .event-submit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .event-submit-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .event-item-desc {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .event-submit-btn {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="g_id_onload" data-client_id="830162422312-5h3nq1bohtktfhg4ksodt0jjsbeuria9.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse" data-auto_prompt="false">
+    </div>
+
+    <!-- Live Visitor Counter -->
+    <div class="visitor-counter" id="visitorCounter">
+        <div class="visitor-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+        </div>
+        <span class="visitor-count" id="visitorCount">0</span>
+        <span class="visitor-label">visitors</span>
+        <span class="visitor-live-dot"></span>
+    </div>
+
+    <div class="page-loader" id="pageLoader">
+        <span class="loader"></span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="logo">
+                    <a href="../">
+                        <img src="../assets/marendallogo.png" alt="MarendalSatu" class="logo-img">
+                    </a>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <input type="text" placeholder="Cari berita...">
+                        <button type="button" title="Cari">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.3-4.3"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="authContainer"></div>
+                    <button type="button" class="theme-toggle" id="themeToggle" title="Ganti Tema">
+                        <span class="theme-icon light">☀️</span>
+                        <span class="theme-icon dark">🌙</span>
+                    </button>
+                    <div class="date-time">
+                        <span id="current-date"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar">
+            <div class="container">
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="../">BERANDA</a></li>
+                    <li class="nav-item"><a href="../berita/">BERITA</a></li>
+                    <li class="nav-item"><a href="../umkm/">UMKM</a></li>
+                    <li class="nav-item active"><a href="./">EVENT</a></li>
+                    <li class="nav-item"><a href="../kirim-berita/">KIRIM BERITA</a></li>
+                    <li class="nav-item has-submenu">
+                        <a href="../quiz/">QUIZ BERITA</a>
+                        <ul class="submenu">
+                            <li><a href="../quiz/">Quiz Harian</a></li>
+                            <li><a href="../quiz/leaderboard/">Papan Peringkat</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="../tentang-kami/">TENTANG KAMI</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="event-hero">
+        <div class="container">
+            <div class="event-banner">
+                <img src="../assets/global-village.png" alt="Global Village 3.0">
+                <div class="event-banner-overlay">
+                    <h2 class="event-banner-title">🎤 Musical Drama in Medan is Coming!</h2>
+                    <div class="event-banner-info">
+                        <span>📍 Universitas Sumatera Utara</span>
+                        <span>📅 24 Januari 2026</span>
+                        <span>🎫 Rp 25.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="event-page">
+
+                <!-- Event Terbaru -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <h2 class="event-section-title" style="margin-bottom:0; border-bottom:none; padding-bottom:0;">Event
+                        Terbaru</h2>
+                    <a href="../kirim-event/" class="event-submit-btn">+ Kirim Event</a>
+                </div>
+
+                <div class="event-list" id="eventList">
+                    <!-- Event 1 - Global Village (Static) -->
+                    <a href="global-village/" class="event-item">
+                        <div class="event-item-img">
+                            <img src="../assets/global-village.png" alt="Global Village 3.0">
+                        </div>
+                        <div class="event-item-content">
+                            <h3 class="event-item-title">Global Village 3.0 - Musical Drama</h3>
+                            <div class="event-item-loc">📍 Universitas Sumatera Utara, Medan</div>
+                            <div class="event-item-date">
+                                <span>📅 24 Jan 2026</span>
+                                <span>🎫 Rp 25K</span>
+                            </div>
+                            <p class="event-item-desc">Keliling dunia dalam satu hari! Drama musikal & storytelling
+                                budaya dari berbagai negara oleh AIESEC USU.</p>
+                            <span class="event-status upcoming">Pendaftaran 1-20 Jan</span>
+                        </div>
+                    </a>
+
+                    <!-- Dynamic events will be loaded here -->
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="../"><img src="../assets/marendallogo.png" alt="MarendalSatu" class="logo-img"></a>
+                        <p>Media berita terpercaya untuk masyarakat Sumatera Utara. Menyajikan informasi terkini,
+                            akurat, dan berimbang seputar Sumatera Utara.</p>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg></a>
+                            <a href="#" aria-label="X"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                    viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                </svg></a>
+                            <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg></a>
+                            <a href="#" aria-label="YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                                </svg></a>
+                        </div>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">Kategori</h4>
+                        <ul class="footer-links">
+                            <li><a href="../berita/">Berita</a></li>
+                            <li><a href="../berita/?kategori=politik">Politik</a></li>
+                            <li><a href="../berita/?kategori=ekonomi">Ekonomi</a></li>
+                            <li><a href="../berita/?kategori=olahraga">Olahraga</a></li>
+                            <li><a href="../berita/?kategori=hiburan">Hiburan</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">Layanan</h4>
+                        <ul class="footer-links">
+                            <li><a href="../umkm/">UMKM</a></li>
+                            <li><a href="./">Event</a></li>
+                            <li><a href="../kirim-berita/">Kirim Berita</a></li>
+                            <li><a href="../kirim-event/">Kirim Event</a></li>
+                            <li><a href="../quiz/">Quiz Berita</a></li>
+                            <li><a href="../quiz/leaderboard/">Papan Peringkat</a></li>
+                            <li><a href="#">Iklan</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">Tentang</h4>
+                        <ul class="footer-links">
+                            <li><a href="../tentang-kami/">Tentang Kami</a></li>
+                            <li><a href="#">Redaksi</a></li>
+                            <li><a href="#">Kontak</a></li>
+                            <li><a href="#">Kebijakan Privasi</a></li>
+                            <li><a href="#">Syarat & Ketentuan</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 MarendalSatu. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script type="module" src="../js/firebase-users.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/ai-chat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script>
+        // Load approved events from Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAAjCd2CvsfiRCVWcwNSmjNt_w3N4eVSbM",
+            databaseURL: "https://login-fe9bf-default-rtdb.firebaseio.com",
+            projectId: "login-fe9bf"
+        };
+
+        let eventPageApp;
+        try { eventPageApp = firebase.app('eventPageApp'); }
+        catch (e) { eventPageApp = firebase.initializeApp(firebaseConfig, 'eventPageApp'); }
+
+        const eventPageDb = eventPageApp.database();
+
+        function loadApprovedEvents() {
+            eventPageDb.ref('eventSubmissions').orderByChild('status').equalTo('approved').on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (!data) return;
+
+                const events = Object.values(data).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                const container = document.getElementById('eventList');
+
+                // Keep the static Global Village event, append dynamic ones
+                events.forEach(event => {
+                    const eventDate = new Date(event.date);
+                    const today = new Date();
+                    const isUpcoming = eventDate >= today;
+
+                    const eventHtml = `
+                        <div class="event-item" onclick="window.location.href='detail/?id=${event.id}'" style="cursor:pointer;">
+                            <div class="event-item-img">
+                                <img src="${event.image || 'https://placehold.co/200x150/ddd/999?text=Event'}" alt="${escapeHtml(event.name)}" onerror="this.src='https://placehold.co/200x150/ddd/999?text=Event'">
+                            </div>
+                            <div class="event-item-content">
+                                <h3 class="event-item-title">${escapeHtml(event.name)}</h3>
+                                <div class="event-item-loc">📍 ${escapeHtml(event.location)}</div>
+                                <div class="event-item-date">
+                                    <span>📅 ${formatEventDate(event.date)}</span>
+                                    <span>🎫 ${escapeHtml(event.price || 'Gratis')}</span>
+                                </div>
+                                <p class="event-item-desc">${escapeHtml((event.description || '').substring(0, 80))}...</p>
+                                <span class="event-status ${isUpcoming ? 'upcoming' : 'ended'}">${isUpcoming ? 'Akan Datang' : 'Selesai'}</span>
+                            </div>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', eventHtml);
+                });
+            });
+        }
+
+        function formatEventDate(dateStr) {
+            if (!dateStr) return '-';
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        document.addEventListener('DOMContentLoaded', loadApprovedEvents);
+    </script>
+    <script src="../js/visitor-counter.js" type="module"></script>
+</body>
+
+</html>

@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - MarendalSatu</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="admin-body">
+    <!-- Login -->
+    <div class="adm-login" id="loginSection">
+        <div class="adm-login-card">
+            <div class="adm-login-brand">
+                <a href="../" class="logo-link"><img src="../assets/marendallogo.png" alt="MarendalSatu" class="logo-img"></a>
+            </div>
+            <h1>Masuk ke Dashboard</h1>
+            <form id="adminLoginForm">
+                <div class="adm-login-field">
+                    <label for="adminUsername">Username</label>
+                    <input type="text" id="adminUsername" placeholder="Username" required>
+                </div>
+                <div class="adm-login-field">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" placeholder="Password" required>
+                </div>
+                <button type="submit" class="adm-login-btn">Masuk</button>
+                <p class="adm-login-error" id="loginError">Username atau password salah</p>
+            </form>
+            <a href="../" class="adm-login-back">← Kembali ke situs</a>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="adm-dashboard" id="adminDashboard">
+        <!-- Sidebar -->
+        <aside class="adm-sidebar">
+            <div class="adm-sidebar-brand">
+                <a href="../" class="logo-link"><img src="../assets/marendallogo.png" alt="MarendalSatu" class="logo-img"></a>
+            </div>
+            <nav class="adm-sidebar-nav">
+                <a href="#" class="adm-nav-item active" data-section="news" onclick="showSection('news')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    Berita Masuk
+                </a>
+                <a href="#" class="adm-nav-item" data-section="events" onclick="showSection('events')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    Event Masuk
+                </a>
+                <a href="#" class="adm-nav-item" data-section="users" onclick="showSection('users')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    Users Login
+                </a>
+                <a href="#" class="adm-nav-item" data-section="quiz" onclick="showSection('quiz')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    Quiz Berita
+                </a>
+                <a href="../" class="adm-nav-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    Lihat Situs
+                </a>
+            </nav>
+            <div class="adm-sidebar-footer">
+                <button type="button" id="btnLogout" class="adm-logout-btn">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div class="adm-sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+        <!-- Main Content -->
+        <main class="adm-main">
+            <header class="adm-topbar">
+                <div class="adm-topbar-left">
+                    <button type="button" class="adm-menu-btn" id="menuBtn" onclick="toggleSidebar()" title="Menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <h2>Berita Masuk</h2>
+                </div>
+                <div class="adm-topbar-right">
+                    <button type="button" class="theme-toggle" id="themeToggle" title="Ganti Tema">
+                        <span class="theme-icon light">☀️</span>
+                        <span class="theme-icon dark">🌙</span>
+                    </button>
+                    <span class="adm-user">Admin</span>
+                </div>
+            </header>
+
+            <div class="adm-content">
+                <!-- Stats -->
+                <div class="adm-stats-row">
+                    <div class="adm-stat-box">
+                        <span class="adm-stat-num" id="pendingCount">0</span>
+                        <span class="adm-stat-label">Menunggu</span>
+                    </div>
+                    <div class="adm-stat-box success">
+                        <span class="adm-stat-num" id="approvedCount">0</span>
+                        <span class="adm-stat-label">Disetujui</span>
+                    </div>
+                    <div class="adm-stat-box danger">
+                        <span class="adm-stat-num" id="rejectedCount">0</span>
+                        <span class="adm-stat-label">Ditolak</span>
+                    </div>
+                </div>
+
+                <!-- Filter -->
+                <div class="adm-filter">
+                    <button type="button" class="adm-filter-btn active" data-filter="pending">Menunggu</button>
+                    <button type="button" class="adm-filter-btn" data-filter="approved">Disetujui</button>
+                    <button type="button" class="adm-filter-btn" data-filter="rejected">Ditolak</button>
+                    <button type="button" class="adm-filter-btn" data-filter="all">Semua</button>
+                </div>
+
+                <!-- News List -->
+                <div class="adm-news-list" id="adminNewsList">
+                    <div class="adm-empty" id="emptyState">
+                        <p>Belum ada berita masuk</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Section (hidden by default) -->
+            <div class="adm-content adm-section" id="usersSection" style="display: none;">
+                <div class="adm-section-header">
+                    <h3>👥 Users yang Login dengan Google</h3>
+                    <span class="adm-user-count">Total: <strong id="totalUsers">0</strong> users</span>
+                </div>
+                <div class="adm-users-list" id="usersList">
+                    <p class="adm-loading">Memuat data users...</p>
+                </div>
+            </div>
+
+            <!-- Events Section (hidden by default) -->
+            <div class="adm-content adm-section" id="eventsSection" style="display: none;">
+                <div class="adm-stats-row">
+                    <div class="adm-stat-box">
+                        <span class="adm-stat-num" id="eventPendingCount">0</span>
+                        <span class="adm-stat-label">Menunggu</span>
+                    </div>
+                    <div class="adm-stat-box success">
+                        <span class="adm-stat-num" id="eventApprovedCount">0</span>
+                        <span class="adm-stat-label">Disetujui</span>
+                    </div>
+                    <div class="adm-stat-box danger">
+                        <span class="adm-stat-num" id="eventRejectedCount">0</span>
+                        <span class="adm-stat-label">Ditolak</span>
+                    </div>
+                </div>
+
+                <div class="adm-filter">
+                    <button type="button" class="adm-filter-btn active" data-filter="pending"
+                        onclick="filterEvents('pending')">Menunggu</button>
+                    <button type="button" class="adm-filter-btn" data-filter="approved"
+                        onclick="filterEvents('approved')">Disetujui</button>
+                    <button type="button" class="adm-filter-btn" data-filter="rejected"
+                        onclick="filterEvents('rejected')">Ditolak</button>
+                    <button type="button" class="adm-filter-btn" data-filter="all"
+                        onclick="filterEvents('all')">Semua</button>
+                </div>
+
+                <div class="adm-news-list" id="adminEventsList">
+                    <div class="adm-empty">
+                        <p>Belum ada event masuk</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Section (hidden by default) -->
+            <div class="adm-content adm-section" id="quizSection" style="display: none;">
+                <div class="adm-stats-row">
+                    <div class="adm-stat-box">
+                        <span class="adm-stat-num" id="quizTotalQuestions">0</span>
+                        <span class="adm-stat-label">Total Soal</span>
+                    </div>
+                    <div class="adm-stat-box success">
+                        <span class="adm-stat-num" id="quizTotalPlayers">0</span>
+                        <span class="adm-stat-label">Total Pemain</span>
+                    </div>
+                    <div class="adm-stat-box">
+                        <span class="adm-stat-num" id="quizTodayPlays">0</span>
+                        <span class="adm-stat-label">Main Hari Ini</span>
+                    </div>
+                </div>
+
+                <div class="adm-quiz-tabs">
+                    <button type="button" class="adm-quiz-tab active" onclick="showQuizTab('questions')">📝 Kelola
+                        Soal</button>
+                    <button type="button" class="adm-quiz-tab" onclick="showQuizTab('stats')">📊 Statistik
+                        Pemain</button>
+                    <button type="button" class="adm-quiz-tab" onclick="showQuizTab('hadiah')">🎁 Hadiah</button>
+                </div>
+
+                <!-- Questions Tab -->
+                <div class="adm-quiz-content" id="quizQuestionsTab">
+                    <div class="adm-quiz-header">
+                        <h3>Daftar Soal Quiz</h3>
+                        <button type="button" class="adm-btn adm-btn-add" onclick="showAddQuestionModal()">+ Tambah
+                            Soal</button>
+                    </div>
+                    <div class="adm-quiz-list" id="quizQuestionsList">
+                        <p class="adm-loading">Memuat soal...</p>
+                    </div>
+                </div>
+
+                <!-- Stats Tab -->
+                <div class="adm-quiz-content" id="quizStatsTab" style="display: none;">
+                    <div class="adm-quiz-header">
+                        <h3>Top 10 Pemain</h3>
+                    </div>
+                    <div class="adm-quiz-leaderboard" id="quizLeaderboardList">
+                        <p class="adm-loading">Memuat data...</p>
+                    </div>
+                </div>
+
+                <!-- Hadiah Tab -->
+                <div class="adm-quiz-content" id="quizHadiahTab" style="display: none;">
+                    <div class="adm-hadiah-info">
+                        <h3>🎁 Hadiah Mingguan</h3>
+                        <p>Pemain dengan skor tertinggi setiap minggu berkesempatan mendapat hadiah:</p>
+                        <div class="adm-hadiah-list">
+                            <div class="adm-hadiah-item">
+                                <span class="adm-hadiah-icon">📱</span>
+                                <div>
+                                    <strong>Pulsa 15K</strong>
+                                    <small>Untuk peringkat 1</small>
+                                </div>
+                            </div>
+                            <div class="adm-hadiah-item">
+                                <span class="adm-hadiah-icon">💰</span>
+                                <div>
+                                    <strong>Saldo DANA 10K</strong>
+                                    <small>Untuk peringkat 2</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="adm-hadiah-note">
+                            <p>* Pemenang diumumkan setiap hari Minggu</p>
+                            <p>* Hubungi admin untuk klaim hadiah</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="adm-modal-overlay" id="detailModal">
+        <div class="adm-modal">
+            <button type="button" class="adm-modal-close" onclick="closeDetailModal()">×</button>
+            <div class="adm-modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div class="adm-modal-overlay" id="confirmModal">
+        <div class="adm-modal adm-modal-sm">
+            <h3 id="confirmTitle">Konfirmasi</h3>
+            <p id="confirmMessage">Apakah Anda yakin?</p>
+            <div class="adm-modal-actions">
+                <button type="button" class="adm-btn-cancel" onclick="closeConfirmModal()">Batal</button>
+                <button type="button" class="adm-btn-confirm" id="btnConfirmAction">Ya</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit News Modal -->
+    <div class="adm-modal-overlay" id="editNewsModal">
+        <div class="adm-modal adm-modal-lg">
+            <button type="button" class="adm-modal-close" onclick="closeEditNewsModal()">×</button>
+            <h3>✏️ Edit Berita</h3>
+            <form id="editNewsForm" class="adm-edit-news-form">
+                <input type="hidden" id="editNewsId">
+                
+                <div class="adm-form-section">
+                    <h4>📰 Informasi Berita</h4>
+                    <div class="adm-form-field">
+                        <label>Judul Berita <span class="required">*</span></label>
+                        <input type="text" id="editNewsTitle" placeholder="Judul berita..." required>
+                    </div>
+                    <div class="adm-form-row">
+                        <div class="adm-form-field">
+                            <label>Kategori</label>
+                            <select id="editNewsCategory" title="Pilih kategori berita">
+                                <option value="bencana">Bencana</option>
+                                <option value="politik">Politik</option>
+                                <option value="olahraga">Olahraga</option>
+                                <option value="kuliner">Kuliner</option>
+                                <option value="ekonomi">Ekonomi</option>
+                                <option value="kesehatan">Kesehatan</option>
+                                <option value="pendidikan">Pendidikan</option>
+                                <option value="wisata">Wisata</option>
+                                <option value="lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                        <div class="adm-form-field">
+                            <label>Lokasi</label>
+                            <input type="text" id="editNewsLocation" placeholder="Lokasi kejadian...">
+                        </div>
+                    </div>
+                    <div class="adm-form-field">
+                        <label>Isi Berita <span class="required">*</span></label>
+                        <textarea id="editNewsContent" rows="8" placeholder="Isi berita lengkap..." required></textarea>
+                    </div>
+                </div>
+
+                <div class="adm-form-section">
+                    <h4>📅 Detail Kejadian</h4>
+                    <div class="adm-form-row">
+                        <div class="adm-form-field">
+                            <label>Tanggal Kejadian</label>
+                            <input type="date" id="editNewsTanggal" title="Tanggal kejadian">
+                        </div>
+                        <div class="adm-form-field">
+                            <label>Waktu Kejadian</label>
+                            <input type="time" id="editNewsWaktu" title="Waktu kejadian">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="adm-form-section">
+                    <h4>👤 Informasi Pengirim</h4>
+                    <div class="adm-form-field">
+                        <label>Nama Pengirim</label>
+                        <input type="text" id="editNewsPenerbit" placeholder="Nama pengirim..." readonly>
+                    </div>
+                    <div class="adm-form-row">
+                        <div class="adm-form-field">
+                            <label>Tipe Kontak</label>
+                            <select id="editNewsContactType" title="Pilih tipe kontak">
+                                <option value="whatsapp">WhatsApp</option>
+                                <option value="email">Email</option>
+                            </select>
+                        </div>
+                        <div class="adm-form-field">
+                            <label>Kontak</label>
+                            <input type="text" id="editNewsContact" placeholder="No. WA / Email" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="adm-form-actions">
+                    <button type="button" class="adm-btn-cancel" onclick="closeEditNewsModal()">Batal</button>
+                    <button type="submit" class="adm-btn-confirm">💾 Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Question Modal -->
+    <div class="adm-modal-overlay" id="questionModal">
+        <div class="adm-modal adm-modal-lg">
+            <button type="button" class="adm-modal-close" onclick="closeQuestionModal()">×</button>
+            <h3 id="questionModalTitle">Tambah Soal Quiz</h3>
+            <form id="questionForm" class="adm-question-form">
+                <div class="adm-form-field">
+                    <label>Pertanyaan <span>*</span></label>
+                    <textarea id="questionText" rows="3" placeholder="Tulis pertanyaan..." required></textarea>
+                </div>
+                <div class="adm-form-field">
+                    <label>Pilihan Jawaban <span>*</span></label>
+                    <input type="text" id="optionA" placeholder="Pilihan A" required>
+                    <input type="text" id="optionB" placeholder="Pilihan B" required>
+                    <input type="text" id="optionC" placeholder="Pilihan C" required>
+                    <input type="text" id="optionD" placeholder="Pilihan D" required>
+                </div>
+                <div class="adm-form-field">
+                    <label>Jawaban Benar <span>*</span></label>
+                    <select id="correctAnswer" required title="Pilih jawaban benar">
+                        <option value="">Pilih jawaban benar</option>
+                        <option value="0">A</option>
+                        <option value="1">B</option>
+                        <option value="2">C</option>
+                        <option value="3">D</option>
+                    </select>
+                </div>
+                <div class="adm-form-actions">
+                    <button type="button" class="adm-btn-cancel" onclick="closeQuestionModal()">Batal</button>
+                    <button type="submit" class="adm-btn-confirm">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        <style>
+            /* Quiz Admin Styles */
+            .adm-quiz-tabs {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+
+            .adm-quiz-tab {
+                padding: 10px 20px;
+                border: 1px solid #ddd;
+                background: #fff;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                transition: all 0.2s;
+            }
+
+            .adm-quiz-tab:hover {
+                border-color: #2d8a4e;
+            }
+
+            .adm-quiz-tab.active {
+                background: #2d8a4e;
+                color: #fff;
+                border-color: #2d8a4e;
+            }
+
+            .adm-quiz-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 15px;
+            }
+
+            .adm-quiz-header h3 {
+                font-size: 1rem;
+                color: #333;
+            }
+
+            .adm-btn-add {
+                padding: 8px 16px;
+                background: #2d8a4e;
+                color: #fff;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 0.85rem;
+            }
+
+            .adm-btn-add:hover {
+                background: #246b3e;
+            }
+
+            .adm-quiz-list {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .adm-quiz-item {
+                display: flex;
+                gap: 15px;
+                padding: 15px;
+                background: #fff;
+                border: 1px solid #eee;
+                border-radius: 10px;
+                align-items: flex-start;
+            }
+
+            .adm-quiz-item:hover {
+                border-color: #ddd;
+            }
+
+            .adm-quiz-num {
+                width: 30px;
+                height: 30px;
+                background: #f0f0f0;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 600;
+                font-size: 0.85rem;
+                flex-shrink: 0;
+            }
+
+            .adm-quiz-info {
+                flex: 1;
+            }
+
+            .adm-quiz-question {
+                font-size: 0.95rem;
+                color: #333;
+                margin-bottom: 8px;
+                line-height: 1.5;
+            }
+
+            .adm-quiz-options {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                font-size: 0.8rem;
+                color: #666;
+            }
+
+            .adm-quiz-options span {
+                padding: 4px 10px;
+                background: #f5f5f5;
+                border-radius: 4px;
+            }
+
+            .adm-quiz-options span.correct {
+                background: #dcfce7;
+                color: #166534;
+            }
+
+            .adm-quiz-actions {
+                display: flex;
+                gap: 8px;
+            }
+
+            .adm-quiz-actions button {
+                padding: 6px 12px;
+                border: 1px solid #ddd;
+                background: #fff;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 0.8rem;
+            }
+
+            .adm-quiz-actions button:hover {
+                border-color: #999;
+            }
+
+            .adm-quiz-actions .btn-delete {
+                color: #dc2626;
+            }
+
+            .adm-quiz-actions .btn-delete:hover {
+                background: #fef2f2;
+                border-color: #dc2626;
+            }
+
+            .adm-quiz-leaderboard {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .adm-lb-item {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                padding: 12px 15px;
+                background: #fff;
+                border: 1px solid #eee;
+                border-radius: 8px;
+            }
+
+            .adm-lb-rank {
+                width: 28px;
+                height: 28px;
+                background: #f0f0f0;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 600;
+                font-size: 0.85rem;
+            }
+
+            .adm-lb-rank.gold {
+                background: #fef3c7;
+                color: #92400e;
+            }
+
+            .adm-lb-rank.silver {
+                background: #f3f4f6;
+                color: #4b5563;
+            }
+
+            .adm-lb-rank.bronze {
+                background: #fed7aa;
+                color: #9a3412;
+            }
+
+            .adm-lb-avatar {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .adm-lb-info {
+                flex: 1;
+            }
+
+            .adm-lb-name {
+                font-weight: 500;
+                color: #333;
+                font-size: 0.9rem;
+            }
+
+            .adm-lb-email {
+                font-size: 0.75rem;
+                color: #888;
+            }
+
+            .adm-lb-wa {
+                font-size: 0.75rem;
+                margin-top: 2px;
+            }
+
+            .adm-lb-wa a {
+                color: #25D366;
+                text-decoration: none;
+            }
+
+            .adm-lb-wa a:hover {
+                text-decoration: underline;
+            }
+
+            .adm-lb-score {
+                font-weight: 700;
+                color: #2d8a4e;
+                font-size: 1rem;
+            }
+
+            .adm-lb-count {
+                font-size: 0.75rem;
+                color: #888;
+            }
+
+            .adm-modal-lg {
+                max-width: 600px;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .adm-question-form {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                margin-top: 15px;
+            }
+
+            /* Edit News Form Styles */
+            .adm-edit-news-form {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                margin-top: 15px;
+            }
+
+            .adm-form-section {
+                background: #f9f9f9;
+                border-radius: 10px;
+                padding: 15px;
+            }
+
+            .adm-form-section h4 {
+                font-size: 0.9rem;
+                color: #333;
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .adm-form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+
+            .adm-form-field {
+                margin-bottom: 12px;
+            }
+
+            .adm-form-field:last-child {
+                margin-bottom: 0;
+            }
+
+            .adm-form-field label {
+                display: block;
+                font-weight: 500;
+                margin-bottom: 8px;
+                font-size: 0.85rem;
+                color: #444;
+            }
+
+            .adm-form-field label .required {
+                color: #dc2626;
+            }
+
+            .adm-form-field input,
+            .adm-form-field textarea,
+            .adm-form-field select {
+                width: 100%;
+                padding: 10px 12px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                font-size: 0.9rem;
+                background: #fff;
+                transition: border-color 0.2s, box-shadow 0.2s;
+            }
+
+            .adm-form-field input:focus,
+            .adm-form-field textarea:focus,
+            .adm-form-field select:focus {
+                outline: none;
+                border-color: #2d8a4e;
+                box-shadow: 0 0 0 3px rgba(45, 138, 78, 0.1);
+            }
+
+            .adm-form-field input[readonly] {
+                background: #f0f0f0;
+                color: #666;
+                cursor: not-allowed;
+            }
+
+            .adm-form-field textarea {
+                resize: vertical;
+                min-height: 120px;
+            }
+
+            .adm-form-actions {
+                display: flex;
+                gap: 10px;
+                justify-content: flex-end;
+                margin-top: 10px;
+                padding-top: 15px;
+                border-top: 1px solid #eee;
+            }
+
+            .adm-btn-cancel {
+                padding: 10px 20px;
+                background: #f5f5f5;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                transition: all 0.2s;
+            }
+
+            .adm-btn-cancel:hover {
+                background: #eee;
+            }
+
+            .adm-btn-confirm {
+                padding: 10px 20px;
+                background: #2d8a4e;
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                transition: all 0.2s;
+            }
+
+            .adm-btn-confirm:hover {
+                background: #246b3e;
+            }
+
+            @media (max-width: 768px) {
+                .adm-quiz-item {
+                    flex-direction: column;
+                }
+
+                .adm-quiz-actions {
+                    width: 100%;
+                    justify-content: flex-end;
+                }
+
+                .adm-form-row {
+                    grid-template-columns: 1fr;
+                }
+
+                .adm-modal-lg {
+                    max-width: 95%;
+                    margin: 10px;
+                }
+            }
+
+            /* Hadiah Styles */
+            .adm-hadiah-info {
+                background: #fff;
+                border: 1px solid #eee;
+                border-radius: 12px;
+                padding: 25px;
+            }
+
+            .adm-hadiah-info h3 {
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+                color: #333;
+            }
+
+            .adm-hadiah-info>p {
+                color: #666;
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+            }
+
+            .adm-hadiah-list {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+
+            .adm-hadiah-item {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                padding: 15px;
+                background: #f9f9f9;
+                border-radius: 8px;
+            }
+
+            .adm-hadiah-icon {
+                font-size: 1.5rem;
+            }
+
+            .adm-hadiah-item strong {
+                display: block;
+                color: #333;
+                font-size: 0.95rem;
+            }
+
+            .adm-hadiah-item small {
+                color: #888;
+                font-size: 0.8rem;
+            }
+
+            .adm-hadiah-note {
+                padding-top: 15px;
+                border-top: 1px solid #eee;
+            }
+
+            .adm-hadiah-note p {
+                font-size: 0.8rem;
+                color: #888;
+                margin: 5px 0;
+            }
+
+            /* Delete player button */
+            .adm-btn-delete-player {
+                padding: 6px 10px;
+                background: #fff;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 0.85rem;
+            }
+
+            .adm-btn-delete-player:hover {
+                background: #fef2f2;
+                border-color: #dc2626;
+            }
+        </style>
+
+        <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+        <script src="../js/main.js"></script>
+        <script type="module" src="../js/firebase-users.js"></script>
+        <script src="../js/firebase-news.js"></script>
+        <script src="../js/admin.js"></script>
+</body>
+
+</html>
