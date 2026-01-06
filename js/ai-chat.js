@@ -1,4 +1,4 @@
-// AI Chat Widget - MarendalSatu
+// AI Chat Widget - Marendal
 const AI_CONFIG = {
     apiUrl: 'https://api.vibe-dev.web.id/v1/chat/completions',
     apiKey: 'vibedevid-I9Y5L5GQocE3m5qgMbE4rRTx0P6ZkJ1V',
@@ -27,11 +27,16 @@ function initAIChat() {
     currentUserName = user ? user.name.split(' ')[0] : null; // First name only
 
     const greeting = currentUserName
-        ? `Halo ${currentUserName}! 👋 Saya asisten AI MarendalSatu. Ada yang bisa saya bantu?`
-        : `Halo! 👋 Saya asisten AI MarendalSatu. Ada yang bisa saya bantu?`;
+        ? `Halo ${currentUserName}! 👋 Saya asisten AI Marendal. Ada yang bisa saya bantu?`
+        : `Halo! 👋 Saya asisten AI Marendal. Ada yang bisa saya bantu?`;
 
     // Determine logo path based on current page depth
-    const pathDepth = window.location.pathname.split('/').filter(p => p && !p.includes('.')).length;
+    // Handle both local and GitHub Pages deployment
+    const pathname = window.location.pathname;
+    const basePath = pathname.includes('/situsmedia_marendal') 
+        ? pathname.split('/situsmedia_marendal')[1] || '/'
+        : pathname;
+    const pathDepth = basePath.split('/').filter(p => p && !p.includes('.')).length;
     const logoPath = pathDepth === 0 ? 'assets/marendallogo.png' : '../'.repeat(pathDepth) + 'assets/marendallogo.png';
 
     // Create chat widget HTML
@@ -39,7 +44,7 @@ function initAIChat() {
     widget.innerHTML = `
         <!-- Floating Button -->
         <button type="button" class="ai-fab" id="aiFab" title="Tanya AI">
-            <span class="ai-fab-icon"><img src="${logoPath}" alt="AI" style="width:24px;height:24px;border-radius:50%;"></span>
+            <span class="ai-fab-icon"><img src="${logoPath}" alt="AI" onerror="this.style.display='none';this.parentElement.innerHTML='🤖';"></span>
             <span class="ai-fab-close">✕</span>
         </button>
         
@@ -47,10 +52,10 @@ function initAIChat() {
         <div class="ai-chat-box" id="aiChatBox">
             <div class="ai-chat-header">
                 <div class="ai-chat-title">
-                    <img src="${logoPath}" alt="AI" style="width:32px;height:32px;border-radius:50%;">
+                    <img src="${logoPath}" alt="AI" style="width:32px;height:32px;border-radius:50%;" onerror="this.style.display='none';">
                     <div>
                         <strong>Asisten AI</strong>
-                        <small>MarendalSatu${currentUserName ? ' • ' + currentUserName : ''}</small>
+                        <small>Marendal${currentUserName ? ' • ' + currentUserName : ''}</small>
                     </div>
                 </div>
                 <button type="button" class="ai-chat-close" onclick="toggleAIChat()">✕</button>
@@ -89,7 +94,7 @@ function initAIChat() {
 function updateChatHeader() {
     const headerSmall = document.querySelector('.ai-chat-title small');
     if (headerSmall && currentUserName) {
-        headerSmall.textContent = 'MarendalSatu • ' + currentUserName;
+        headerSmall.textContent = 'Marendal • ' + currentUserName;
     }
 }
 
@@ -129,7 +134,7 @@ async function sendAIMessage() {
                 messages: [
                     {
                         role: 'system',
-                        content: `Kamu asisten AI MarendalSatu, portal berita Sumatera Utara. ${currentUserName ? 'Kamu sedang berbicara dengan ' + currentUserName + '. ' : ''}Jawab singkat, jelas, tanpa emoji berlebihan, tanpa bullet point, tanpa format markdown. Pakai bahasa Indonesia santai seperti ngobrol biasa. Langsung ke inti jawaban.`
+                        content: `Kamu asisten AI Marendal, portal berita Sumatera Utara. ${currentUserName ? 'Kamu sedang berbicara dengan ' + currentUserName + '. ' : ''}Jawab singkat, jelas, tanpa emoji berlebihan, tanpa bullet point, tanpa format markdown. Pakai bahasa Indonesia santai seperti ngobrol biasa. Langsung ke inti jawaban.`
                     },
                     ...chatHistory.slice(-6),
                     { role: 'user', content: message }

@@ -172,7 +172,12 @@ function showLoginModal() {
         modal.className = 'login-modal-overlay';
         
         // Determine logo path based on current page depth
-        const pathDepth = window.location.pathname.split('/').filter(p => p && !p.includes('.')).length;
+        // Handle both local and GitHub Pages deployment
+        const pathname = window.location.pathname;
+        const basePath = pathname.includes('/situsmedia_marendal') 
+            ? pathname.split('/situsmedia_marendal')[1] || '/'
+            : pathname;
+        const pathDepth = basePath.split('/').filter(p => p && !p.includes('.')).length;
         const logoPath = pathDepth === 0 ? 'assets/marendallogo.png' : '../'.repeat(pathDepth) + 'assets/marendallogo.png';
         
         modal.innerHTML = `
@@ -180,7 +185,7 @@ function showLoginModal() {
                 <button class="login-modal-close" onclick="closeLoginModal()">×</button>
                 <div class="login-modal-content">
                     <div class="login-modal-logo">
-                        <img src="${logoPath}" alt="MarendalSatu" style="height:40px;">
+                        <img src="${logoPath}" alt="Marendal" style="height:40px;" onerror="this.style.display='none';">
                     </div>
                     <h2>Masuk ke Akun</h2>
                     <p>Masuk untuk berkomentar dan mengirim berita</p>
