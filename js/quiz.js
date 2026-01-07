@@ -76,8 +76,8 @@ function checkLoginStatus() {
                 initFirebase();
             }
             
-            // Check if user has WhatsApp number
-            checkWhatsAppNumber();
+            // Check if user has Instagram
+            checkInstagram();
         } catch (e) {
             console.error('Quiz: Error parsing user data', e);
             showLoginRequired();
@@ -87,52 +87,53 @@ function checkLoginStatus() {
     }
 }
 
-function checkWhatsAppNumber() {
+function checkInstagram() {
     const oderId = quizCurrentUser.id || quizCurrentUser.email.replace(/[.@]/g, '_');
 
-    quizDb.ref('quizLeaderboard/' + oderId + '/whatsapp').once('value', (snapshot) => {
-        const whatsapp = snapshot.val();
-        if (whatsapp) {
-            quizCurrentUser.whatsapp = whatsapp;
+    quizDb.ref('quizLeaderboard/' + oderId + '/instagram').once('value', (snapshot) => {
+        const instagram = snapshot.val();
+        if (instagram) {
+            quizCurrentUser.instagram = instagram;
             checkTodayQuiz();
         } else {
-            showWhatsAppForm();
+            showInstagramForm();
         }
     }).catch((error) => {
-        console.error('Error checking WhatsApp:', error);
-        // Jika error, langsung tampilkan form WhatsApp
-        showWhatsAppForm();
+        console.error('Error checking Instagram:', error);
+        // Jika error, langsung tampilkan form Instagram
+        showInstagramForm();
     });
 }
 
-function showWhatsAppForm() {
+function showInstagramForm() {
     document.getElementById('quizContainer').innerHTML = `
         <div class="quiz-wa-form">
-            <div class="quiz-wa-icon">📱</div>
+            <div class="quiz-wa-icon">📸</div>
             <h2>Lengkapi Data</h2>
-            <p>Masukkan nomor WhatsApp untuk bisa dihubungi jika menang hadiah mingguan</p>
-            <form onsubmit="saveWhatsAppNumber(event)">
+            <p>Masukkan username Instagram untuk bisa dihubungi jika menang hadiah mingguan</p>
+            <form onsubmit="saveInstagram(event)">
                 <div class="quiz-wa-input">
-                    <span class="quiz-wa-prefix">+62</span>
-                    <input type="tel" id="waNumber" placeholder="8123456789" pattern="[0-9]{9,13}" required>
+                    <span class="quiz-wa-prefix">@</span>
+                    <input type="text" id="igUsername" placeholder="username_kamu" pattern="[a-zA-Z0-9._]{1,30}" required>
                 </div>
-                <p class="quiz-wa-hint">Contoh: 81234567890 (tanpa 0 di depan)</p>
+                <p class="quiz-wa-hint">Contoh: marendal_official (tanpa @)</p>
                 <button type="submit" class="quiz-wa-btn">Simpan & Mulai Quiz</button>
             </form>
         </div>
     `;
 }
 
-async function saveWhatsAppNumber(e) {
+async function saveInstagram(e) {
     e.preventDefault();
-    const waInput = document.getElementById('waNumber').value.trim();
+    const igInput = document.getElementById('igUsername').value.trim();
 
-    if (!waInput || waInput.length < 9) {
-        alert('Nomor WhatsApp tidak valid');
+    if (!igInput || igInput.length < 1) {
+        alert('Username Instagram tidak valid');
         return;
     }
 
-    const whatsapp = '+62' + waInput.replace(/^0+/, '');
+    // Remove @ if user accidentally added it
+    const instagram = '@' + igInput.replace(/^@/, '');
     const oderId = quizCurrentUser.id || quizCurrentUser.email.replace(/[.@]/g, '_');
 
     // Show loading
@@ -149,17 +150,17 @@ async function saveWhatsAppNumber(e) {
             name: quizCurrentUser.name,
             email: quizCurrentUser.email,
             picture: quizCurrentUser.picture || '',
-            whatsapp: whatsapp,
+            instagram: instagram,
             totalScore: 0,
             quizCount: 0,
             totalDuration: 0,
             avgDuration: 0
         });
 
-        quizCurrentUser.whatsapp = whatsapp;
+        quizCurrentUser.instagram = instagram;
         checkTodayQuiz();
     } catch (err) {
-        console.error('Error saving WhatsApp:', err);
+        console.error('Error saving Instagram:', err);
         alert('Gagal menyimpan: ' + err.message);
         if (btn) {
             btn.disabled = false;
@@ -167,7 +168,7 @@ async function saveWhatsAppNumber(e) {
         }
     }
 }
-window.saveWhatsAppNumber = saveWhatsAppNumber;
+window.saveInstagram = saveInstagram;
 
 function showLoginRequired() {
     document.getElementById('quizContainer').innerHTML = `
@@ -449,7 +450,7 @@ async function saveResult(correct) {
         name: quizCurrentUser.name,
         email: quizCurrentUser.email,
         picture: quizCurrentUser.picture || '',
-        whatsapp: quizCurrentUser.whatsapp || '',
+        instagram: quizCurrentUser.instagram || '',
         score,
         correct,
         total: questions.length,
@@ -481,7 +482,7 @@ async function saveResult(correct) {
                 name: quizCurrentUser.name,
                 email: quizCurrentUser.email,
                 picture: quizCurrentUser.picture || '',
-                whatsapp: quizCurrentUser.whatsapp || '',
+                instagram: quizCurrentUser.instagram || '',
                 totalScore: score,
                 quizCount: 1,
                 totalDuration: totalDuration,

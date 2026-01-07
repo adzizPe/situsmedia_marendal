@@ -14,164 +14,13 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         .product-page {
-            padding: 30px 0 50px;
-        }
-
-        .product-detail {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .product-top {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .product-image {
-            width: 280px;
-            flex-shrink: 0;
-        }
-
-        .product-image img {
-            width: 100%;
-            border-radius: 8px;
-            background: #fff;
-            padding: 20px;
-            border: 1px solid var(--border);
-        }
-
-        .product-info {
-            flex: 1;
-        }
-
-        .product-category {
-            font-size: 0.8rem;
-            color: var(--primary);
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-
-        .product-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 12px;
-        }
-
-        .product-price {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .product-short-desc {
-            font-size: 0.95rem;
-            color: var(--text-body);
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        .product-buttons {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn-product {
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-decoration: none;
-            text-align: center;
-            transition: opacity 0.2s;
-        }
-
-        .btn-product:hover {
-            opacity: 0.9;
-        }
-
-        .btn-wa {
-            background: #25D366;
-            color: #fff;
-        }
-
-        .btn-beli {
-            background: var(--primary);
-            color: #fff;
-        }
-
-        .product-section {
-            margin-bottom: 30px;
-        }
-
-        .product-section-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .product-desc {
-            font-size: 0.95rem;
-            color: var(--text-body);
-            line-height: 1.8;
-        }
-
-        .product-desc p {
-            margin-bottom: 12px;
-        }
-
-        .product-features {
-            list-style: none;
-            padding: 0;
-        }
-
-        .product-features li {
-            padding: 8px 0;
-            font-size: 0.9rem;
-            color: var(--text-body);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .product-features li:last-child {
-            border-bottom: none;
-        }
-
-        .product-features li::before {
-            content: "✓";
-            color: var(--primary);
-            font-weight: 600;
-            margin-right: 10px;
-        }
-
-        .product-contact {
-            background: var(--bg-muted);
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .product-contact p {
-            font-size: 0.9rem;
-            color: var(--text-body);
-            margin-bottom: 12px;
-        }
-
-        .contact-info {
-            font-size: 0.9rem;
-            color: var(--text-dark);
-        }
-
-        .contact-info a {
-            color: var(--primary);
-            font-weight: 500;
+            padding: 20px 0 50px;
         }
 
         .back-link {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             margin-bottom: 20px;
             font-size: 0.9rem;
             color: var(--text-muted);
@@ -181,6 +30,286 @@
             color: var(--primary);
         }
 
+        /* Product Hero */
+        .product-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .product-main-image {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 350px;
+        }
+
+        .product-main-image img {
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+        }
+
+        .product-thumbs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .product-thumb {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            border: 2px solid var(--border);
+            padding: 8px;
+            background: #fff;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .product-thumb:hover,
+        .product-thumb.active {
+            border-color: var(--primary);
+        }
+
+        .product-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Product Info */
+        .product-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-badge {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+
+        .product-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .product-tagline {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .product-price-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .product-price-note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .product-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-muted);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-body);
+        }
+
+        .highlight-item span {
+            font-size: 1rem;
+        }
+
+        .product-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .btn-product {
+            flex: 1;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-product:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-wa {
+            background: #25D366;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-beli {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(45, 138, 78, 0.3);
+        }
+
+        /* Product Details Section */
+        .product-details {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .product-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .product-section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .product-desc {
+            font-size: 0.95rem;
+            color: var(--text-body);
+            line-height: 1.8;
+        }
+
+        .product-desc p {
+            margin-bottom: 16px;
+        }
+
+        .product-desc p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Features List */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: var(--bg-muted);
+            border-radius: 8px;
+        }
+
+        .feature-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--primary-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .feature-text {
+            font-size: 0.9rem;
+            color: var(--text-body);
+        }
+
+        /* Sidebar */
+        .product-sidebar .product-section {
+            position: sticky;
+            top: 100px;
+        }
+
+        .contact-box {
+            text-align: center;
+        }
+
+        .contact-box p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .contact-wa {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            background: #25D366;
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 12px;
+        }
+
+        .contact-wa:hover {
+            background: #1da851;
+        }
+
+        .contact-info {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Dark Mode */
         [data-theme="dark"] .product-title {
             color: #fff;
         }
@@ -189,37 +318,64 @@
             color: #fff;
         }
 
-        [data-theme="dark"] .product-image img {
-            background: #222;
+        [data-theme="dark"] .product-main-image,
+        [data-theme="dark"] .product-thumb {
+            background: #1a1a1a;
             border-color: #333;
         }
 
-        [data-theme="dark"] .product-contact {
-            background: #111;
+        [data-theme="dark"] .product-price-box {
+            background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+            border-color: #333;
         }
 
-        @media (max-width: 600px) {
-            .product-top {
-                flex-direction: column;
-                gap: 20px;
+        [data-theme="dark"] .product-section {
+            background: #111;
+            border-color: #333;
+        }
+
+        [data-theme="dark"] .highlight-item,
+        [data-theme="dark"] .feature-item {
+            background: #1a1a1a;
+        }
+
+        [data-theme="dark"] .feature-icon {
+            background: #1a3d1a;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-hero {
+                grid-template-columns: 1fr;
+                gap: 24px;
             }
 
-            .product-image {
-                width: 100%;
-                max-width: 250px;
-                margin: 0 auto;
+            .product-main-image {
+                min-height: 250px;
             }
 
             .product-title {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
+            }
+
+            .product-price {
+                font-size: 1.6rem;
+            }
+
+            .product-details {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
             }
 
             .product-buttons {
                 flex-direction: column;
             }
 
-            .btn-product {
-                width: 100%;
+            .product-sidebar .product-section {
+                position: static;
             }
         }
     </style>
@@ -298,57 +454,98 @@
             <div class="product-page">
                 <a href="../" class="back-link">← Kembali ke UMKM</a>
 
-                <div class="product-detail">
-                    <div class="product-top">
-                        <div class="product-image">
-                            <img src="../../assets/zeratto coklat.png" alt="Zeratto Chocolate">
+                <!-- Hero Section -->
+                <div class="product-hero">
+                    <div class="product-gallery">
+                        <div class="product-main-image">
+                            <img src="../../assets/zeratto coklat.png" alt="Zeratto Chocolate" id="mainImg">
                         </div>
-                        <div class="product-info">
-                            <div class="product-category">Makanan & Minuman</div>
-                            <h1 class="product-title">Zeratto Chocolate</h1>
-                            <div class="product-price">Rp 3.000</div>
-                            <p class="product-short-desc">
-                                Coklat batangan premium buatan lokal Sumatera Utara. Rasa lezat dengan harga terjangkau.
-                            </p>
-                            <div class="product-buttons">
-                                <a href="https://wa.me/6281234567890?text=Halo,%20saya%20mau%20pesan%20Zeratto%20Chocolate" target="_blank" rel="noopener" class="btn-product btn-wa">Hubungi via WhatsApp</a>
-                                <a href="https://dev.xen.to/QOHSF5GA" target="_blank" rel="noopener" class="btn-product btn-beli">Beli Sekarang</a>
+                        <div class="product-thumbs">
+                            <div class="product-thumb active" onclick="changeImg(this, '../../assets/zeratto coklat.png')">
+                                <img src="../../assets/zeratto coklat.png" alt="Logo">
+                            </div>
+                            <div class="product-thumb" onclick="changeImg(this, '../../assets/zeratto coklat.png')">
+                                <img src="../../assets/zeratto coklat.png" alt="Produk">
+                            </div>
+                            <div class="product-thumb" onclick="changeImg(this, '../../assets/zeratto coklat.png')">
+                                <img src="../../assets/zeratto coklat.png" alt="Detail">
                             </div>
                         </div>
                     </div>
 
-                    <div class="product-section">
-                        <h2 class="product-section-title">Tentang Produk</h2>
-                        <div class="product-desc">
-                            <p>
-                                Zeratto Chocolate adalah coklat batangan yang diproduksi oleh UMKM lokal di Sumatera Utara. 
-                                Dibuat dengan bahan-bahan berkualitas dan proses produksi yang higienis untuk menghasilkan 
-                                coklat dengan rasa yang nikmat.
-                            </p>
-                            <p>
-                                Cocok untuk camilan sehari-hari, teman ngopi, atau sebagai oleh-oleh khas daerah. 
-                                Dengan harga yang terjangkau, Zeratto Chocolate bisa dinikmati oleh semua kalangan.
-                            </p>
+                    <div class="product-info">
+                        <span class="product-badge">Produk Lokal Sumut</span>
+                        <h1 class="product-title">Zeratto Chocolate</h1>
+                        <p class="product-tagline">Coklat batangan premium dengan cita rasa khas Sumatera Utara</p>
+
+                        <div class="product-price-box">
+                            <div class="product-price">Rp 3.000</div>
+                            <div class="product-price-note">per batang • Tersedia grosir</div>
+                        </div>
+
+                        <div class="product-highlights">
+                            <div class="highlight-item"><span>🍫</span> Coklat Asli</div>
+                            <div class="highlight-item"><span>🏠</span> Produksi Lokal</div>
+                            <div class="highlight-item"><span>✨</span> Tanpa Pengawet</div>
+                            <div class="highlight-item"><span>📦</span> Siap Kirim</div>
+                        </div>
+
+                        <div class="product-buttons">
+                            <a href="https://wa.me/6281234567890?text=Halo,%20saya%20mau%20pesan%20Zeratto%20Chocolate" target="_blank" rel="noopener" class="btn-product btn-wa">Pesan via WhatsApp</a>
+                            <a href="https://dev.xen.to/QOHSF5GA" target="_blank" rel="noopener" class="btn-product btn-beli">Beli Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Details Section -->
+                <div class="product-details">
+                    <div class="product-main-content">
+                        <div class="product-section">
+                            <h2 class="product-section-title">Tentang Zeratto</h2>
+                            <div class="product-desc">
+                                <p><strong>Zeratto Chocolate</strong> adalah coklat batangan yang diproduksi dengan penuh dedikasi oleh UMKM lokal di Sumatera Utara. Setiap batang dibuat dengan bahan berkualitas dan proses produksi yang higienis.</p>
+                                <p>Dengan rasa coklat yang kaya dan tekstur lembut, Zeratto cocok untuk camilan sehari-hari, teman ngopi, atau oleh-oleh khas daerah yang berkesan.</p>
+                            </div>
+                        </div>
+
+                        <div class="product-section">
+                            <h2 class="product-section-title">Keunggulan Produk</h2>
+                            <div class="features-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏭</div>
+                                    <div class="feature-text">Produksi higienis</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌿</div>
+                                    <div class="feature-text">Bahan alami</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">💰</div>
+                                    <div class="feature-text">Harga terjangkau</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🎁</div>
+                                    <div class="feature-text">Cocok oleh-oleh</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">📦</div>
+                                    <div class="feature-text">Tersedia grosir</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🚚</div>
+                                    <div class="feature-text">Kirim se-Indonesia</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="product-section">
-                        <h2 class="product-section-title">Keunggulan</h2>
-                        <ul class="product-features">
-                            <li>Produk lokal Sumatera Utara</li>
-                            <li>Bahan berkualitas</li>
-                            <li>Proses produksi higienis</li>
-                            <li>Harga terjangkau</li>
-                            <li>Cocok untuk oleh-oleh</li>
-                        </ul>
-                    </div>
-
-                    <div class="product-section">
-                        <h2 class="product-section-title">Pemesanan</h2>
-                        <div class="product-contact">
-                            <p>Untuk pemesanan dalam jumlah banyak atau pertanyaan seputar produk, silakan hubungi kami:</p>
-                            <div class="contact-info">
-                                WhatsApp: <a href="https://wa.me/6281234567890" target="_blank" rel="noopener">0812-3456-7890</a>
+                    <div class="product-sidebar">
+                        <div class="product-section">
+                            <div class="contact-box">
+                                <h3 class="product-section-title">Hubungi Kami</h3>
+                                <p>Pemesanan atau pertanyaan</p>
+                                <a href="https://wa.me/6281234567890" target="_blank" rel="noopener" class="contact-wa">Chat WhatsApp</a>
+                                <div class="contact-info">0812-3456-7890</div>
                             </div>
                         </div>
                     </div>
@@ -357,33 +554,75 @@
         </div>
     </main>
 
+    <script>
+        function changeImg(el, src) {
+            document.getElementById('mainImg').src = src;
+            document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+        }
+    </script>
+
     <footer class="footer">
         <div class="footer-main">
             <div class="container">
                 <div class="footer-grid">
                     <div class="footer-brand">
                         <a href="../../"><img src="../../assets/marendallogo.png" alt="Marendal" class="logo-img"></a>
-                        <p>Media berita terpercaya untuk masyarakat Sumatera Utara.</p>
+                        <p>Media berita terpercaya untuk masyarakat Sumatera Utara. Menyajikan informasi terkini,
+                            akurat, dan berimbang seputar Sumatera Utara.</p>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg></a>
+                            <a href="#" aria-label="X"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                    viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                </svg></a>
+                            <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg></a>
+                            <a href="#" aria-label="YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                                </svg></a>
+                        </div>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-title">Kategori</h4>
                         <ul class="footer-links">
                             <li><a href="../../berita/">Berita</a></li>
-                            <li><a href="../../umkm/">UMKM</a></li>
-                            <li><a href="../../event/">Event</a></li>
+                            <li><a href="../../berita/?kategori=politik">Politik</a></li>
+                            <li><a href="../../berita/?kategori=ekonomi">Ekonomi</a></li>
+                            <li><a href="../../berita/?kategori=olahraga">Olahraga</a></li>
+                            <li><a href="../../berita/?kategori=hiburan">Hiburan</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-title">Layanan</h4>
                         <ul class="footer-links">
+                            <li><a href="../">UMKM</a></li>
+                            <li><a href="../../event/">Event</a></li>
                             <li><a href="../../kirim-berita/">Kirim Berita</a></li>
+                            <li><a href="../../kirim-event/">Kirim Event</a></li>
                             <li><a href="../../quiz/">Quiz Berita</a></li>
+                            <li><a href="../../quiz/leaderboard/">Papan Peringkat</a></li>
+                            <li><a href="#">Iklan</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-title">Tentang</h4>
                         <ul class="footer-links">
                             <li><a href="../../tentang-kami/">Tentang Kami</a></li>
+                            <li><a href="#">Redaksi</a></li>
+                            <li><a href="#">Kontak</a></li>
+                            <li><a href="#">Kebijakan Privasi</a></li>
+                            <li><a href="#">Syarat & Ketentuan</a></li>
                         </ul>
                     </div>
                 </div>

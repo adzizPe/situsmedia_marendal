@@ -70,6 +70,37 @@
             gap: 4px;
         }
 
+        /* Quiz Rules Info */
+        .quiz-rules {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-rules-item {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-body);
+        }
+
+        .quiz-rules-icon {
+            font-size: 1rem;
+        }
+
+        [data-theme="dark"] .quiz-rules-item {
+            background: #111;
+            border-color: #333;
+        }
+
         .quiz-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -603,6 +634,22 @@
                     <div class="quiz-hadiah-items">
                         <span>🥇 Pulsa 15K</span>
                         <span>🥈 DANA 10K</span>
+                    </div>
+                </div>
+
+                <!-- Info Aturan -->
+                <div class="quiz-rules">
+                    <div class="quiz-rules-item">
+                        <span class="quiz-rules-icon">🔄</span>
+                        <span>Peringkat di-reset setiap minggu</span>
+                    </div>
+                    <div class="quiz-rules-item">
+                        <span class="quiz-rules-icon">📢</span>
+                        <span>Pengumuman pemenang setiap hari Senin</span>
+                    </div>
+                    <div class="quiz-rules-item">
+                        <span class="quiz-rules-icon">⚡</span>
+                        <span>Poin sama? Kecepatan menjawab jadi penentu!</span>
                     </div>
                 </div>
 
